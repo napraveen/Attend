@@ -1,0 +1,60 @@
+.student-dashboard-container {
+  margin-left: 20%;
+  margin-top: 20px;
+}
+
+.student-dashboard-attendance {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 80vw;
+  height: 30vh;
+  /* background-color: yellow; */
+}
+
+.student-dashboard-present-days {
+  /* background-color: rgb(235, 31, 31); */
+  background-color: rgb(200, 250, 206);
+  border: 2px solid black;
+  width: 30vw;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.student-dashboard-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-dashboard-absent-days {
+  /* background-color: rgb(228, 109, 109); */
+  background-color: rgba(237, 177, 177, 0.779);
+  border: 2px solid black;
+  width: 30vw;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media (max-width: 720px) {
+  .student-dashboard-container {
+    margin-top: 100px;
+    margin-left: 0px;
+  }
+  .student-dashboard-attendance {
+    width: 100vw;
+  }
+  .student-dashboard-present-days {
+    width: 40vw;
+  }
+
+  .student-dashboard-absent-days {
+    width: 40vw;
+  }
+}

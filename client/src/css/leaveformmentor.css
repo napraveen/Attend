@@ -1,0 +1,23 @@
+.lfm-container {
+  margin-left: 20%;
+}
+.lfm-accept-button,
+.lfm-reject-button {
+  height: 30px;
+  width: 150px;
+  background-color: rgb(127, 255, 170);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.lfm-reject-button {
+  background-color: rgba(243, 77, 77, 0.648);
+}
+.lfm-accept-button:hover {
+  background-color: rgb(53, 226, 169);
+}
+
+.lfm-reject-button:hover {
+  background-color: rgba(243, 77, 77, 0.885);
+}

@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-color: #93dca8;
+}
+
+.login-box h1 {
+  margin-bottom: 50px;
+  margin-top: 10vh;
+  font-family: cursive;
+  font-weight: 500;
+}
+.login-box {
+  /* margin-top: 10vh; */
+  text-align: center;
+  width: 400px;
+  height: 300px;
+}
+.login-email {
+  margin-bottom: 30px;
+}
+
+.login-box label {
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.login-box input {
+  font-size: 20px;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  border: 3px solid white;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.login-box input::placeholder {
+  font-size: 13px;
+}
+
+.login-submit:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-signup-button {
+  color: black;
+  font-weight: bolder;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.login-container a {
+  color: black;
+}
+
+.login-container ul {
+  list-style: none;
+  margin-left: 50vw;
+  /* margin-top: 50px; */
+  display: flex;
+}
+
+.login-container ul li {
+  margin-right: 70px;
+
+  /* color: rgba(0, 0, 0, 0.614); */
+}
+.login-container li:hover {
+  color: yellow;
+}
+
+.login-container li {
+  font-family: 'Courier New', Courier, monospace;
+}
+.login-container a {
+  color: rgba(0, 0, 0, 0.614);
+  text-decoration: none;
+}
+
+.login-container label {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 500;
+}
+
+.login-submit {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+
+  position: relative;
+  margin-top: 40px;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.login-home,
+.login-signup {
+  font-size: 20px;
+  color: black;
+  font-weight: 900;
+  font-family: 'Courier New', Courier, monospace;
+  color: #048743;
+}
+.login-home:hover,
+.login-signup:hover {
+  color: #064e29;
+  transition-delay: 0.5s linear;
+}
+.login-home:hover,
+.login-signup:hover {
+  transform: scale(1.2);
+}
+.login-signup-button {
+  margin-top: 30px;
+  margin-left: 100px;
+}
+.login-signup-button a:hover {
+  color: yellow;
+}

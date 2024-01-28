@@ -1,0 +1,104 @@
+.edit-right p {
+  color: rgb(255, 255, 255);
+}
+
+/* .edit-not-add-student {
+  display: none;
+} */
+
+.edit-add-student {
+  display: block;
+}
+
+.edit-right {
+  /* background-color: whitesmoke; */
+  width: 80%;
+  /* height: 2000px; */
+  margin-left: 20%;
+}
+
+.edit-add-a-student,
+.edit-remove-a-student {
+  margin-top: 90px;
+  width: 90%;
+  height: 60px;
+  background-color: rgb(52, 52, 51);
+  border-radius: 5px;
+  margin-left: 20px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  padding-left: 20px;
+  cursor: pointer;
+  /* transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s; */
+}
+.edit-remove-a-student {
+  margin-top: 30px;
+}
+
+.edit-add-student,
+.edit-remove-student {
+  /* transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s; */
+  width: 90%;
+  margin-left: 50px;
+  margin-top: 4vh;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* align-items: space-between; */
+}
+
+.edit-add-student input,
+.edit-remove-student input {
+  width: 250px;
+  height: 50px;
+  margin-right: 4vw;
+  margin-top: 3vh;
+  border: 2px solid black;
+  border-radius: 5px;
+  /* to move cursor  */
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+}
+
+.edit-add-student input::placeholder,
+.edit-remove-student input::placeholder {
+  padding-left: 30px;
+  font-size: 13px;
+}
+.edit-add-student button,
+.edit-remove-student button {
+  height: 50px;
+  width: 250px;
+  background-color: aquamarine;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.edit-remove-student button {
+  width: 150px;
+}
+.edit-add-student button:hover,
+.edit-remove-student button:hover {
+  background-color: rgb(53, 226, 169);
+}
+
+.edit-found-student-details {
+  display: flex;
+}
+
+.edit-found-student-details p {
+  margin-right: 20px;
+  color: black;
+}
+.edit-remove-student table {
+  margin-left: 0px;
+  margin-top: 20px;
+}
+
+@media (max-width: 720px) {
+  .edit-right {
+    margin-left: 10%;
+    margin-top: 10%;
+  }
+}

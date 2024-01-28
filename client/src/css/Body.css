@@ -1,0 +1,133 @@
+.body-all-items {
+  margin-left: 100px;
+  margin-top: 70px;
+}
+.body-electronics {
+  margin-left: 100px;
+  margin-top: 70px;
+}
+.body-first {
+  width: 90vw;
+  height: 25vh;
+  margin-left: 65px;
+}
+
+.body-img-list-first {
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+  margin-left: 30px;
+}
+
+.body-container-1,
+.body-container-2 {
+  height: 62vh;
+  width: 90vw;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+
+  background-color: rgb(255, 255, 255);
+  margin-left: 10vh;
+  margin-top: 50px;
+}
+
+.body-container-2 {
+  margin-top: 50px;
+}
+
+.body-offer {
+  background-color: rgb(190, 255, 232);
+  height: 20px;
+  width: 140px;
+  padding-left: 10px;
+  margin-top: -10px;
+  color: black;
+}
+
+.body-rating {
+  background-color: rgb(171, 255, 176);
+  height: 20px;
+  width: 40px;
+  padding-left: 10px;
+  margin-top: 5px;
+  color: black;
+}
+
+.body-food1 {
+  height: 300px;
+  width: 280px;
+  margin-left: 50px;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.167);
+  background-color: white;
+  margin-bottom: 50px;
+}
+
+.body-food1:hover,
+.body-food2:hover,
+.body-food3:hover {
+  background-color: rgba(227, 227, 227, 0.55);
+}
+.body-list-img {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.body-food2 {
+  height: 300px;
+  width: 280px;
+  margin-right: 50px;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.167);
+  background-color: white;
+}
+
+.body-food3,
+.body-food4 {
+  height: 300px;
+  width: 280px;
+  margin-right: 50px;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.167);
+  background-color: white;
+}
+
+.body-title {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 100;
+}
+
+.body-para {
+  margin-top: -15px;
+  margin-left: 10px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.body-all-items {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.body-container {
+  display: flex;
+  flex-direction: column;
+}
+.body-para,
+.body-offer {
+  margin-top: 10px;
+}
+.body-container-1,
+.body-container-2 {
+  background-color: #f3f2f0;
+  /* background-color: red; */
+  display: flex;
+  /* gap: 50px; */
+  /* max-width: fit-content; */
+  height: fit-content;
+}
+
+.body-container-1 {
+  display: flex;
+  /* justify-content: center; */
+}
