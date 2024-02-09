@@ -12,7 +12,7 @@ const StudentHomePage = () => {
   const { userDetails } = GetUserDetails();
   const [studentdata, setStudentData] = useState([]);
 
-  const [formStatus, setFormStatus] = useState([]);
+  const [formStatus, setFormStatus] = useState({});
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
@@ -21,7 +21,7 @@ const StudentHomePage = () => {
         );
         if (response.ok) {
           const studentData = await response.json();
-          console.log(studentData);
+          // console.log(studentData);
           setStudentData(studentData); // Update state with fetched data
         } else {
           throw new Error('Failed to fetch data');
@@ -39,16 +39,10 @@ const StudentHomePage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Status Checker Data:', data.found[0].status);
-          setFormStatus(data.found[0]);
-          console.log('hii', data.found[0]);
-          if (data.found[0].status === 'verified') {
-            document
-              .querySelector('.student-dashboard-status')
-              .classList.add('verified');
-          }
+          setFormStatus(data);
 
-          // You can handle the data as needed
+          // console.log('form status = ', formStatus);
+          // console.log('the data is ', data);
         } else {
           throw new Error('Failed to fetch status checker data');
         }
@@ -60,6 +54,23 @@ const StudentHomePage = () => {
     fetchStudentData();
     statusChecker();
   }, [authenticated, userDetails]);
+  const getColor = (status) => {
+    console.log(formStatus);
+    if (status === 'Applied') {
+      // console.log('hiihihhhi', status);
+      return 'rgb(242, 242, 146)';
+    } else if (status === 'Not Applied') {
+      // console.log('hiihihhhi', status);
+      return 'rgb(239, 169, 167)';
+    } else if (status === 'verified') {
+      return ' rgb(242, 205, 146)';
+    } else if (status === 'Accepted') {
+      return 'rgb(157, 240, 165)';
+    }
+    // Default color if status is neither 'Applied' nor 'Not Applied'
+    return ''; // You can set a default color here if needed
+  };
+
   return (
     <>
       {studentdata.length > 0 ? (
@@ -76,6 +87,21 @@ const StudentHomePage = () => {
               <h1>Absent Days:</h1>
               <h2>{studentdata[0].absentCount || 0}</h2>
             </div>
+          </div>
+          <div>
+            {Object.keys(formStatus).map((date) => (
+              <div key={date} className="student-dashboard-status-header">
+                <div>
+                  <h3>{date}</h3>
+                </div>
+                <div
+                  className="student-dashboard-status"
+                  style={{ backgroundColor: getColor(formStatus[date]) }}
+                >
+                  <p>{formStatus[date]}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       ) : (

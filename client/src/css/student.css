@@ -113,3 +113,7 @@
 .verified {
   background-color: rgb(254, 218, 36);
 }
+.student-dashboard-status {
+  /* background-color: rgb(209, 167, 239); */
+  background-color: rgb(157, 240, 165);
+}

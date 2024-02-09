@@ -135,3 +135,28 @@ const StudentHomePage = () => {
 };
 
 export default StudentHomePage;
+
+const statusChecker = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/statuschecker`
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      // console.log('Status Checker Data:', data.found[0].status);
+      // setFormStatus(data.found[0]);
+      // console.log('hii', data.found[0]);
+      // if (data.found[0].status === 'verified') {
+      //   document
+      //     .querySelector('.student-dashboard-status')
+      //     .classList.add('verified');
+      // }
+      console.log('hiaoshgia', data);
+    } else {
+      throw new Error('Failed to fetch status checker data');
+    }
+  } catch (error) {
+    console.error('Error fetching status checker data:', error);
+  }
+};

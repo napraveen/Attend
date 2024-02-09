@@ -710,12 +710,13 @@ app.get(
       });
       unAppliedDates.forEach((item) => {
         if (!(item in datesStatusDictionary)) {
-          datesStatusDictionary[item] = 'Not Applied ';
+          datesStatusDictionary[item] = 'Not Applied';
         }
       });
       console.log(absentDates, unAppliedDates, acceptedDates, allAppliedDates);
 
       console.log(datesStatusDictionary);
+      res.status(200).json(datesStatusDictionary);
       // console.log('found', found);
     } catch (e) {
       console.log(e);
