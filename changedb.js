@@ -245,39 +245,62 @@ const User = mongoose.model('User', userSchema);
 
 // const departments = ['IECEA', 'IECEB', 'IECEC', 'IIECEA', 'IIECEB', 'IIECEC', 'IIIECEB', 'IVECEB'];
 
-// departments.map((department) => {
-//   department = mongoose.model(department, StudentSchema);
-// });
-const IECEA = mongoose.model('IECEA', StudentSchema);
-const IECEB = mongoose.model('IECEB', StudentSchema);
-const IECEC = mongoose.model('IECEC', StudentSchema);
-const IIECEA = mongoose.model('IIECEA', StudentSchema);
-const IIECEB = mongoose.model('IIECEB', StudentSchema);
-const IIECEC = mongoose.model('IIECEC', StudentSchema);
-const IIIECEA = mongoose.model('IIIECEA', StudentSchema);
-const IIIECEB = mongoose.model('IIIECEB', StudentSchema);
-const IIIECEC = mongoose.model('IIIECEC', StudentSchema);
-const IVECEA = mongoose.model('IVECEA', StudentSchema);
-const IVECEB = mongoose.model('IVECEB', StudentSchema);
-const IVECEC = mongoose.model('IVECEC', StudentSchema);
+// departments.map((department)=>{
+//    department = mongoose.model(department, StudentSchema)
+// })
+// const IECEA = mongoose.model('IECEA', StudentSchema);
+// const IECEB = mongoose.model('IECEB', StudentSchema);
+// const IECEC = mongoose.model('IECEC', StudentSchema);
+// const IIECEA = mongoose.model('IIECEA', StudentSchema);
+// const IIECEB = mongoose.model('IIECEB', StudentSchema);
+// const IIECEC = mongoose.model('IIECEC', StudentSchema);
+// const IIIECEA = mongoose.model('IIIECEA', StudentSchema);
+// const IIIECEB = mongoose.model('IIIECEB', StudentSchema);
+// const IIIECEC = mongoose.model('IIIECEC', StudentSchema);
+// const IVECEA = mongoose.model('IVECEA', StudentSchema);
+// const IVECEB = mongoose.model('IVECEB', StudentSchema);
+// const IVECEC = mongoose.model('IVECEC', StudentSchema);
+const stud_departments = [
+  'ECE',
+  'MECH',
+  'EEE',
+  'CSE',
+  'IT',
+  'ADS',
+  'AML',
+  'CHEM',
+  'CIVIL',
+  'BIO',
+];
+const models = {};
+stud_departments.forEach((department) => {
+  ['A', 'B', 'C'].forEach((section) => {
+    ['I', 'II', 'III', 'IV'].forEach((year) => {
+      const modelName = `${year}${department}${section}`;
+      // console.log(modelName);
+      models[modelName] = mongoose.model(modelName, StudentSchema);
+    });
+  });
+});
 
 const LeaveForm = mongoose.model('LeaveForm', leaveFormSchema);
 module.exports = {
   User,
   publicPosts,
   privatePosts,
-  IECEA,
-  IECEB,
-  IECEC,
-  IIECEA,
-  IIECEB,
-  IIECEC,
-  IIIECEA,
-  IIIECEB,
-  IIIECEC,
-  IVECEA,
-  IVECEB,
-  IVECEC,
+  // IECEA,
+  // IECEB,
+  // IECEC,
+  // IIECEA,
+  // IIECEB,
+  // IIECEC,
+  // IIIECEA,
+  // IIIECEB,
+  // IIIECEC,
+  // IVECEA,
+  // IVECEB,
+  // IVECEC,
   submittedDates,
   LeaveForm,
+  models,
 };

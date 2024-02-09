@@ -27,6 +27,9 @@
   width: 400px;
   height: 300px;
 }
+.login-box h1 span {
+  color: black;
+}
 .login-email {
   margin-bottom: 30px;
 }

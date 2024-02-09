@@ -111,7 +111,7 @@ const LFHRight = () => {
                       ))}
                   </td>
 
-                  {file.status !== 'accepted' ? (
+                  {file.status !== 'Accepted' ? (
                     <td>
                       {' '}
                       <button

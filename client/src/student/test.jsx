@@ -11,8 +11,34 @@ const StudentHomePage = () => {
   // }
   const { userDetails } = GetUserDetails();
   const [studentdata, setStudentData] = useState([]);
-
   const [formStatus, setFormStatus] = useState([]);
+  // useEffect(() => {
+  //   const fetchStudentData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/studentdetails`
+  //       );
+  //       if (response.ok) {
+  //         const studentData = await response.json();
+  //         console.log(studentData);
+  //         setStudentData(studentData); // Update state with fetched data
+  //       } else {
+  //         throw new Error('Failed to fetch data');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+
+  //   const statusChecker = async () => {
+  //     const response = await fetch(
+  //       `http://localhost:4001/api/${userDetails.department}/${userDetails.email}/statuschecker`
+  //     );
+  //   };
+  //   fetchStudentData();
+
+  //   statusChecker();
+  // }, [authenticated, userDetails]);
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
@@ -34,7 +60,7 @@ const StudentHomePage = () => {
     const statusChecker = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/statuschecker`
+          `http://localhost:4001/api/${userDetails.department}/${userDetails.email}/statuschecker`
         );
 
         if (response.ok) {
@@ -60,6 +86,7 @@ const StudentHomePage = () => {
     fetchStudentData();
     statusChecker();
   }, [authenticated, userDetails]);
+
   return (
     <>
       {studentdata.length > 0 ? (
@@ -77,6 +104,28 @@ const StudentHomePage = () => {
               <h2>{studentdata[0].absentCount || 0}</h2>
             </div>
           </div>
+          <div className="student-dashboard-accepted-days">
+            <h1>Leave Form Accepted:</h1>
+            <h2>{studentdata[0].acceptedDates.length || 0}</h2>
+          </div>
+          {formStatus ? (
+            <div>
+              {' '}
+              <div className="student-dashboard-status-header">
+                <div>
+                  <h3>Leave Form</h3>
+                </div>
+
+                <div className="student-dashboard-status">
+                  {formStatus.status ? (
+                    <p>{formStatus.status}</p>
+                  ) : (
+                    <p>submitted</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : (
         <h1>hi</h1>

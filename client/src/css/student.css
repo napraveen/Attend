@@ -20,6 +20,7 @@
   width: 30vw;
   height: 20vh;
   display: flex;
+  font-size: small;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -38,8 +39,22 @@
   height: 20vh;
   display: flex;
   justify-content: center;
+  font-size: small;
   align-items: center;
   flex-direction: column;
+}
+
+.student-dashboard-accepted-days {
+  background-color: rgb(240, 250, 200);
+  border: 2px solid black;
+  width: 30vw;
+  height: 20vh;
+  font-size: small;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 58px;
 }
 
 @media (max-width: 720px) {
@@ -57,4 +72,44 @@
   .student-dashboard-absent-days {
     width: 40vw;
   }
+  .student-dashboard-absent-days h1 {
+    font-size: medium;
+  }
+  .student-dashboard-present-days h1 {
+    font-size: medium;
+  }
+  .student-dashboard-accepted-days h1 {
+    font-size: medium;
+  }
+}
+.student-dashboard-status-header {
+  width: 70vw;
+  height: 50px;
+  background-color: rgba(231, 231, 231, 0.69);
+  display: flex;
+  margin-left: 50px;
+  margin-top: 30px;
+  border-radius: 10px;
+
+  /* justify-content: center; */
+  align-items: center;
+}
+.student-dashboard-status-header h3 {
+  margin-left: 50px;
+  color: black;
+}
+.student-dashboard-status {
+  height: 30px;
+  width: 100px;
+  background-color: rgb(195, 189, 189);
+  border-radius: 20px;
+  /* float: ; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 45vw;
+}
+
+.verified {
+  background-color: rgb(254, 218, 36);
 }

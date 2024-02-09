@@ -1,14 +1,13 @@
 const express = require('express');
 
 const app = express();
-const { User } = require('./db');
+const { User, submittedDates, LeaveForm, models } = require('./db');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
 //---- To check ----
 // const bodyParser = require("body-parser")
-
 const cookieParser = require('cookie-parser');
 // const data = require('./data');
 const {
@@ -24,9 +23,8 @@ const {
   IVECEA,
   IVECEB,
   IVECEC,
-  submittedDates,
-  LeaveForm,
-} = require('./db');
+} = { models };
+
 // const Grid = require('gridfs-stream');
 const { use } = require('./routes/auth');
 const { addListener } = require('nodemon');
@@ -577,36 +575,24 @@ app.post('/api/accepted', async (req, res) => {
       return res.status(404).json({ message: 'Department not found' });
     }
 
-    // const student = dep.students.find((student) => student._id == id);
-    // console.log(student);
-    // student.status = 'Accepted';
-    // await dep.save();
-    const studentIndex = dep.students.findIndex((student) => student._id == id);
-    if (studentIndex === -1) {
-      return res.status(404).json({ message: 'Student not found' });
-    }
-
-    // Remove the student from the 'students' array
-    dep.students.splice(studentIndex, 1);
-
-    // Save the changes to the LeaveForm document
+    const student = dep.students.find((student) => student._id == id);
+    console.log(student);
+    student.status = 'Accepted';
     await dep.save();
 
     const newID = year + department + section;
     const DepartmentModel = Model[newID];
 
     const sectionToLoop = await DepartmentModel.find();
-    console.log('kjasdhfkjasbd ,', sectionToLoop);
+
     const stud = sectionToLoop.filter(
       (student) => student.registerNo === regNo
     );
     // const newDate = new Date().toISOString().slice(0, 10);
     // stud[0].acceptedDates.push(dates);
-    console.log('hi ', sectionToLoop);
     dates.forEach((date) => {
       stud[0].acceptedDates.push(date);
     });
-    console.log(stud);
 
     stud[0].unAppliedDates = stud[0].unAppliedDates.filter(
       (date) => !dates.includes(date)
@@ -666,86 +652,6 @@ app.get(
     res.status(200).json({ unAppliedDates });
   }
 );
-
-app.get(
-  '/api/:year/:department/:section/:email/statuschecker',
-  async (req, res) => {
-    const dep = req.params.department;
-    const year = req.params.year;
-    const section = req.params.section;
-    const newID = year + dep + section;
-    const DepartmentModel = Model[newID];
-
-    const sectionToLoop = await DepartmentModel.find();
-    const email = req.params.email;
-    const student = sectionToLoop.filter((student) => student.email === email);
-    console.log('hi', student);
-    try {
-      const datesStatusDictionary = {};
-
-      const absentDates = student[0].absentDates;
-      const unAppliedDates = student[0].unAppliedDates;
-      // console.log('jasdbfhlabskf', unAppliedDates);
-      const acceptedDates = student[0].acceptedDates;
-      acceptedDates.forEach((date) => {
-        datesStatusDictionary[date] = 'Accepted';
-      });
-
-      const department = await LeaveForm.findOne({ department: dep });
-
-      // if (!department) {
-      //   return res.status(404).json({ message: 'Department not found' });
-      // }
-
-      const allAppliedDates =
-        department?.students?.filter((student) => student.email === email) ||
-        [];
-
-      allAppliedDates.forEach((item) => {
-        if (item.status) {
-          datesStatusDictionary[item.appliedDates] = item.status;
-        } else {
-          datesStatusDictionary[item.appliedDates] = 'Applied';
-        }
-      });
-      unAppliedDates.forEach((item) => {
-        if (!(item in datesStatusDictionary)) {
-          datesStatusDictionary[item] = 'Not Applied ';
-        }
-      });
-      console.log(absentDates, unAppliedDates, acceptedDates, allAppliedDates);
-
-      console.log(datesStatusDictionary);
-      // console.log('found', found);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-);
-// app.get('/api/:department/:email/statuschecker', async (req, res) => {
-//   const email = req.params.email;
-//   const dep = req.params.department;
-
-//   try {
-//     const department = await LeaveForm.findOne({ department: dep });
-
-//     if (!department) {
-//       return res.status(404).json({ message: 'Department not found' });
-//     }
-
-//     const found =
-//       department?.students?.filter((student) => student.email === email) || [];
-
-//     console.log('found ', found);
-
-//     // Handle the found data and send a response
-//     res.status(200).json({ found });
-//   } catch (error) {
-//     console.error('Error in /api/:department/:email/statuschecker:', error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
-
 app.listen(4001, () => {
   console.log('Server running on 4001');
 });
