@@ -35,6 +35,7 @@ const LFHRight = () => {
       year: file.year,
       department: file.department,
       section: file.section,
+      batch: file.batch,
       regNo: file.regNo,
       dates: file.dates,
     };
@@ -42,7 +43,7 @@ const LFHRight = () => {
       `http://localhost:4001/api/accepted`,
       studentdata
     );
-    console.log(res);
+    console.log('hiiiiiiiiii ', res);
     if (res.status === 200) {
       console.log('Data successfully sent:', res);
 

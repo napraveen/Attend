@@ -28,7 +28,7 @@ const Attendance = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4001/api/updateAttendance/${userDetails.year}/${userDetails.department}/${userDetails.section}`,
+        `http://localhost:4001/api/updateAttendance/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}`,
         {
           method: 'POST',
           headers: {
@@ -56,7 +56,7 @@ const Attendance = () => {
     const fetchStudents = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/classdetails`
+          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/classdetails`
         );
         if (response.ok) {
           const studentsData = await response.json();

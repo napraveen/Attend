@@ -29,10 +29,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  batch: {
-    type: String,
-    required: false,
-  },
   createdAt: {
     type: Date,
     default: new Date(),
@@ -71,10 +67,6 @@ const StudentSchema = new mongoose.Schema({
     required: false,
   },
   section: {
-    type: String,
-    required: false,
-  },
-  batch: {
     type: String,
     required: false,
   },
@@ -160,10 +152,6 @@ const leaveFormSchema = mongoose.Schema({
         required: false,
       },
       section: {
-        type: String,
-        required: false,
-      },
-      batch: {
         type: String,
         required: false,
       },
@@ -255,42 +243,41 @@ const departments = [
 
 const User = mongoose.model('User', userSchema);
 
-// const departments = ['IECEA', 'IECEB', 'IECEC', 'IIECEA', 'IIECEB', 'IIECEC', 'IIIECEB2021', 'IVECEB2020'];
+// const departments = ['IECEA', 'IECEB', 'IECEC', 'IIECEA', 'IIECEB', 'IIECEC', 'IIIECEB', 'IVECEB'];
 
 // departments.map((department) => {
 //   department = mongoose.model(department, StudentSchema);
 // });
-const IECE2023A = mongoose.model('IECE2023A', StudentSchema);
-const IECE2023B = mongoose.model('IECE2023B', StudentSchema);
-const IECE2023C = mongoose.model('IECE2023C', StudentSchema);
-const IIECE2022A = mongoose.model('IIECE2022A', StudentSchema);
-const IIECE2022B = mongoose.model('IIECE2022B', StudentSchema);
-const IIECE2022C = mongoose.model('IIECE2022C', StudentSchema);
-const IIIECE2021A = mongoose.model('IIIECE2021A', StudentSchema);
-const IIIECE2021B = mongoose.model('IIIECE2021B', StudentSchema);
-const IIIECE2021C = mongoose.model('IIIECE2021C', StudentSchema);
-const IVECE2020A = mongoose.model('IVECE2020A', StudentSchema);
-const IVECE2020B = mongoose.model('IVECE2020B', StudentSchema);
-const IVECE2020C = mongoose.model('IVECE2020C', StudentSchema);
+const IECEA = mongoose.model('IECEA', StudentSchema);
+const IECEB = mongoose.model('IECEB', StudentSchema);
+const IECEC = mongoose.model('IECEC', StudentSchema);
+const IIECEA = mongoose.model('IIECEA', StudentSchema);
+const IIECEB = mongoose.model('IIECEB', StudentSchema);
+const IIECEC = mongoose.model('IIECEC', StudentSchema);
+const IIIECEA = mongoose.model('IIIECEA', StudentSchema);
+const IIIECEB = mongoose.model('IIIECEB', StudentSchema);
+const IIIECEC = mongoose.model('IIIECEC', StudentSchema);
+const IVECEA = mongoose.model('IVECEA', StudentSchema);
+const IVECEB = mongoose.model('IVECEB', StudentSchema);
+const IVECEC = mongoose.model('IVECEC', StudentSchema);
 
 const LeaveForm = mongoose.model('LeaveForm', leaveFormSchema);
 module.exports = {
   User,
   publicPosts,
   privatePosts,
-
-  IECE2023A,
-  IECE2023B,
-  IECE2023C,
-  IIECE2022A,
-  IIECE2022B,
-  IIECE2022C,
-  IIIECE2021A,
-  IIIECE2021B,
-  IIIECE2021C,
-  IVECE2020A,
-  IVECE2020B,
-  IVECE2020C,
+  IECEA,
+  IECEB,
+  IECEC,
+  IIECEA,
+  IIECEB,
+  IIECEC,
+  IIIECEA,
+  IIIECEB,
+  IIIECEC,
+  IVECEA,
+  IVECEB,
+  IVECEC,
   submittedDates,
   LeaveForm,
 };

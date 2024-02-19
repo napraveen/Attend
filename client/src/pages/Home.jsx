@@ -28,11 +28,11 @@ const Home = () => {
         let response = 0;
         if (userDetails.category === 'mentor') {
           response = await fetch(
-            `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/classdetails`
+            `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/classdetails`
           );
         } else if (userDetails.category === 'hod') {
           response = await fetch(
-            `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/departmentdetails`
+            `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.batch}/departmentdetails`
           );
         }
         if (response.ok) {

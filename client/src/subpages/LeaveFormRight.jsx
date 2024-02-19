@@ -37,6 +37,7 @@ const LeaveFormRight = () => {
     year: '',
     department: '',
     section: '',
+    batch: '',
     email: '',
     name: '',
     regNo: '',
@@ -53,6 +54,7 @@ const LeaveFormRight = () => {
       year: userDetails?.year ?? '',
       department: userDetails?.department ?? '',
       section: userDetails?.section ?? '',
+      batch: userDetails?.batch ?? '',
       email: userDetails?.email ?? '',
       name: '',
       regNo: '',
@@ -79,7 +81,7 @@ const LeaveFormRight = () => {
     const fetchAbsentDates = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/absentdates`
+          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${userDetails.email}/absentdates`
         );
 
         setAbsentDates(response.data.unAppliedDates);
@@ -149,6 +151,7 @@ const LeaveFormRight = () => {
         year: '',
         department: '',
         section: '',
+        batch: '',
         email: '',
         imgUrl: '',
         name: '',

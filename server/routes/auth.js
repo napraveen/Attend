@@ -57,6 +57,7 @@ router.post(
         year: usernameArray[1],
         department: usernameArray[2],
         section: usernameArray[3],
+        batch: usernameArray[4],
       });
     } else if (usernameArray[0] === 'hod') {
       const user = await User.create({
@@ -66,6 +67,7 @@ router.post(
         category: 'hod',
         year: usernameArray[1],
         department: usernameArray[2],
+        batch: usernameArray[3],
       });
     } else if (usernameArray[0] === 'student') {
       const user = await User.create({
@@ -76,7 +78,9 @@ router.post(
         year: usernameArray[1],
         department: usernameArray[2],
         section: usernameArray[3],
+        batch: usernameArray[4],
       });
+      console.log(user);
     } else {
       const user = await User.create({
         email,

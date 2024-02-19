@@ -1,25 +1,19 @@
 const {
-  IECE2023A,
-  IECE2023B,
-  IECE2023C,
-  IIECE2022A,
-  IIECE2022B,
-  IIECE2022C,
-  IIIECE2021A,
-  IIIECE2021B,
-  IIIECE2021C,
-  IVECE2020A,
-  IVECE2020B,
-  IVECE2020C,
+  IECEA,
+  IECEB,
+  IECEC,
+  IIECEA,
+  IIECEB,
+  IIECEC,
+  IIIECEA,
+  IIIECEB,
+  IIIECEC,
+  IVECEA,
+  IVECEB,
+  IVECEC,
 } = require('./db');
 
-const saveStudentsToDatabase = async (
-  modelName,
-  department,
-  year,
-  section,
-  batch
-) => {
+const saveStudentsToDatabase = async (modelName, department, year, section) => {
   try {
     const studentsData = [
       {
@@ -31,7 +25,6 @@ const saveStudentsToDatabase = async (
         mobileNo: '1234567890',
         year,
         departmentId: 'ECE' + 'B',
-        batch,
       },
       {
         department,
@@ -42,7 +35,6 @@ const saveStudentsToDatabase = async (
         mobileNo: '1234567890',
         year,
         departmentId: 'ECE' + 'B',
-        batch,
       },
       {
         department,
@@ -53,7 +45,6 @@ const saveStudentsToDatabase = async (
         mobileNo: '1234567890',
         year,
         departmentId: 'ECE' + 'B',
-        batch,
       },
       {
         department,
@@ -64,7 +55,6 @@ const saveStudentsToDatabase = async (
         mobileNo: '1234567890',
         year,
         departmentId: 'ECE' + 'B',
-        batch,
       },
       {
         department,
@@ -75,7 +65,6 @@ const saveStudentsToDatabase = async (
         mobileNo: '1234567890',
         year,
         departmentId: 'ECE' + 'B',
-        batch,
       },
 
       {
@@ -87,7 +76,6 @@ const saveStudentsToDatabase = async (
         mobileNo: '1234567891',
         year,
         departmentId: 'ECE' + 'B',
-        batch,
       },
     ];
 
@@ -101,17 +89,17 @@ const saveStudentsToDatabase = async (
   }
 };
 
-saveStudentsToDatabase('IECE2023A', 'ECE', '1', 'A', '2023');
-saveStudentsToDatabase('IECE2023B', 'ECE', '1', 'B', '2023');
-saveStudentsToDatabase('IECE2023C', 'ECE', '1', 'C', '2023');
-saveStudentsToDatabase('IIECE2022A', 'ECE', '2', 'A', '2022');
-saveStudentsToDatabase('IIECE2022B', 'ECE', '2', 'B', '2022');
-saveStudentsToDatabase('IIECE2022C', 'ECE', '2', 'C', '2022');
-saveStudentsToDatabase('IIIECE2021A', 'ECE', '3', 'A', '2021');
-saveStudentsToDatabase('IIIECE2021B', 'ECE', '3', 'B', '2021');
-saveStudentsToDatabase('IIIECE2021C', 'ECE', '3', 'C', '2021');
-saveStudentsToDatabase('IVECE2020A', 'ECE', '4', 'A', '2020');
-saveStudentsToDatabase('IVECE2020B', 'ECE', '4', 'B', '2020');
-saveStudentsToDatabase('IVECE2020C', 'ECE', '4', 'C', '2020');
+saveStudentsToDatabase('IECEA', 'ECE', '1', 'A');
+saveStudentsToDatabase('IECEB', 'ECE', '1', 'B');
+saveStudentsToDatabase('IECEC', 'ECE', '1', 'C');
+saveStudentsToDatabase('IIECEA', 'ECE', '2', 'A');
+saveStudentsToDatabase('IIECEB', 'ECE', '2', 'B');
+saveStudentsToDatabase('IIECEC', 'ECE', '2', 'C');
+saveStudentsToDatabase('IIIECEA', 'ECE', '3', 'A');
+saveStudentsToDatabase('IIIECEB', 'ECE', '3', 'B');
+saveStudentsToDatabase('IIIECEC', 'ECE', '3', 'C');
+saveStudentsToDatabase('IVECEA', 'ECE', '4', 'A');
+saveStudentsToDatabase('IVECEB', 'ECE', '4', 'B');
+saveStudentsToDatabase('IVECEC', 'ECE', '4', 'C');
 
 module.exports = saveStudentsToDatabase;

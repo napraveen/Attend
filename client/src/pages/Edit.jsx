@@ -31,7 +31,7 @@ const Home = () => {
   const findStudent = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4001/api/findstudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${registerNo}`
+        `http://localhost:4001/api/findstudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${registerNo}`
       );
       if (response.ok) {
         setShowTable(true);
@@ -48,7 +48,7 @@ const Home = () => {
   };
   const handleRemoveStudent = async () => {
     const removedResponse = await fetch(
-      `http://localhost:4001/api/deletestudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${studentFound._id}`,
+      `http://localhost:4001/api/deletestudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${studentFound._id}/${studentFound.email}`,
       {
         method: 'DELETE',
       }
@@ -63,6 +63,7 @@ const Home = () => {
     year: '',
     department: '',
     section: '',
+    batch: '',
     departmentId: '',
     rollNo: '',
     registerNo: '',
@@ -74,9 +75,10 @@ const Home = () => {
 
   const handleSubmitAddStudent = async (e) => {
     e.preventDefault();
+    console.log('huuuhuhuu ', studentData);
     try {
       await axios.post(
-        `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/addstudents`,
+        `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/addstudents`,
         studentData
       );
       const { username, password, email } = studentData;
@@ -97,6 +99,7 @@ const Home = () => {
         year: '',
         department: '',
         section: '',
+        batch: '',
         departmentId: '',
         rollNo: '',
         registerNo: '',
@@ -191,6 +194,13 @@ const Home = () => {
                         value={studentData.section}
                         onChange={handleChange}
                         placeholder="Section"
+                      />
+                      <input
+                        type="text"
+                        name="batch"
+                        value={studentData.batch}
+                        onChange={handleChange}
+                        placeholder="Batch"
                       />
                       <input
                         type="text"

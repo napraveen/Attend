@@ -12,25 +12,24 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 // const data = require('./data');
 const {
-  IECE2023A,
-  IECE2023B,
-  IECE2023C,
-  IIECE2022A,
-  IIECE2022B,
-  IIECE2022C,
-  IIIECE2021A,
-  IIIECE2021B,
-  IIIECE2021C,
-  IVECE2020A,
-  IVECE2020B,
-  IVECE2020C,
+  IECEA,
+  IECEB,
+  IECEC,
+  IIECEA,
+  IIECEB,
+  IIECEC,
+  IIIECEA,
+  IIIECEB,
+  IIIECEC,
+  IVECEA,
+  IVECEB,
+  IVECEC,
   submittedDates,
   LeaveForm,
 } = require('./db');
 // const Grid = require('gridfs-stream');
 const { use } = require('./routes/auth');
 const { addListener } = require('nodemon');
-const { user } = require('firebase-functions/v1/auth');
 app.use(express.json());
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -89,30 +88,29 @@ app.get('/api/user/:username', async (req, res) => {
 // });
 
 const Model = {
-  IECE2023A,
-  IECE2023B,
-  IECE2023C,
-  IIECE2022A,
-  IIECE2022B,
-  IIECE2022C,
-  IIIECE2021A,
-  IIIECE2021B,
-  IIIECE2021C,
-  IVECE2020A,
-  IVECE2020B,
-  IVECE2020C,
+  IECEA,
+  IECEB,
+  IECEC,
+  IIECEA,
+  IIECEB,
+  IIECEC,
+  IIIECEA,
+  IIIECEB,
+  IIIECEC,
+  IVECEA,
+  IVECEB,
+  IVECEC,
 };
 //2nd success -- update attendance
 app.post(
-  '/api/updateAttendance/:year/:department/:section/:batch',
+  '/api/updateAttendance/:year/:department/:section',
   async (req, res) => {
     try {
       const { presentStudents, absentStudents } = req.body;
       const dep = req.params.department;
       const year = req.params.year;
       const section = req.params.section;
-      const batch = req.params.batch;
-      const newID = year + dep + batch + section;
+      const newID = year + dep + section;
       const DepartmentModel = Model[newID];
 
       const sectionToLoop = await DepartmentModel.find();
@@ -183,65 +181,58 @@ app.get('/api/submissionstatus/:departmentId', async (req, res) => {
 });
 
 //2nd success -- Add Student in Edit Page
-app.post(
-  '/api/:year/:department/:section/:batch/addstudents',
-  async (req, res) => {
-    try {
-      const {
-        name,
-        year,
-        department,
-        section,
-        departmentId,
-        category,
-        email,
-        username,
-        rollNo,
-        registerNo,
-        mobileNo,
-        batch,
-      } = req.body;
+app.post('/api/:year/:department/:section/addstudents', async (req, res) => {
+  try {
+    const {
+      name,
+      year,
+      department,
+      section,
+      departmentId,
+      category,
+      email,
+      username,
+      rollNo,
+      registerNo,
+      mobileNo,
+    } = req.body;
 
-      const studDepartment = req.params.department;
-      const studYear = req.params.year;
-      const studSection = req.params.section;
-      const studbatch = req.params.batch;
-      const newID = studYear + studDepartment + studbatch + studSection;
-      const DepartmentModel = Model[newID];
-      // Use the create method to directly create and save the new student
-      console.log(batch);
-      await DepartmentModel.create({
-        name,
-        year,
-        department,
-        section,
-        batch,
-        departmentId,
-        rollNo,
-        registerNo,
-        mobileNo,
-        category,
-        email,
-        username,
-      });
+    const studDepartment = req.params.department;
+    const studYear = req.params.year;
+    const studSection = req.params.section;
+    const newID = studYear + studDepartment + studSection;
+    const DepartmentModel = Model[newID];
 
-      res.status(201).json({ message: 'Student added successfully!' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+    // Use the create method to directly create and save the new student
+    await DepartmentModel.create({
+      name,
+      year,
+      department,
+      section,
+      departmentId,
+      rollNo,
+      registerNo,
+      mobileNo,
+      category,
+      email,
+      username,
+    });
+
+    res.status(201).json({ message: 'Student added successfully!' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-);
+});
 
 //2nd success -- Searching in Remove Student Edit Page
 app.get(
-  '/api/findstudent/:year/:department/:section/:batch/:registerno',
+  '/api/findstudent/:year/:department/:section/:registerno',
   async (req, res) => {
     const regNo = req.params.registerno;
     const dep = req.params.department;
     const year = req.params.year;
     const section = req.params.section;
-    const batch = req.params.batch;
-    const newID = year + dep + batch + section;
+    const newID = year + dep + section;
     const DepartmentModel = Model[newID];
 
     const sectionToLoop = await DepartmentModel.find();
@@ -249,14 +240,13 @@ app.get(
     const student = sectionToLoop.filter((item) => item.registerNo == regNo);
     console.log('student: ' + student);
     // const student = await Student.findOne({ registerNo: registerNumber });
-    console.log('akbsgkjlasgjiabsjg ', student[0]);
     res.status(200).json({ found: student[0] });
   }
 );
 
 //2nd success -- Deletion in Edit Page
 app.delete(
-  '/api/deletestudent/:year/:department/:section/:batch/:studentid/:email',
+  '/api/deletestudent/:year/:department/:section/:studentid',
   async (req, res) => {
     try {
       const studentIdToDelete = req.params.studentid;
@@ -264,20 +254,12 @@ app.delete(
       const dep = req.params.department;
       const year = req.params.year;
       const section = req.params.section;
-      const batch = req.params.batch;
-      const userId = req.params.userId;
-      const email = req.params.email;
-      const newID = year + dep + batch + section;
+      const newID = year + dep + section;
       const DepartmentModel = Model[newID];
 
       // Find and remove the student with the specified ID
       const result = await DepartmentModel.findByIdAndDelete(studentIdToDelete);
-      // const person = await User.findByIdAndDelete(userId);
-      const userToDelete = await User.findOne({ email: email });
 
-      await User.findByIdAndDelete(userToDelete._id);
-
-      // console.log(resultFound);
       if (result) {
         console.log(
           `Student with ID ${studentIdToDelete} deleted successfully.`
@@ -295,21 +277,16 @@ app.delete(
 );
 
 //2nd success -- Retriving class details
-app.get(
-  '/api/:year/:department/:section/:batch/classdetails',
-  async (req, res) => {
-    const dep = req.params.department;
-    const year = req.params.year;
-    const section = req.params.section;
-    const batch = req.params.batch;
-    const newID = year + dep + batch + section;
-    const DepartmentModel = Model[newID];
-    console.log('deparmentmodel ', dep, year, section, newID, DepartmentModel);
+app.get('/api/:year/:department/:section/classdetails', async (req, res) => {
+  const dep = req.params.department;
+  const year = req.params.year;
+  const section = req.params.section;
+  const newID = year + dep + section;
+  const DepartmentModel = Model[newID];
 
-    const sectionToLoop = await DepartmentModel.find();
-    res.send(sectionToLoop);
-  }
-);
+  const sectionToLoop = await DepartmentModel.find();
+  res.send(sectionToLoop);
+});
 
 // app.get('/api/:year/:department/departmentdetails', async (req, res) => {
 //   const dep = req.params.department;
@@ -344,10 +321,9 @@ app.get(
 // });
 
 //2nd success -- Getting All details of a Department in Dashboard Page of HOD --
-app.get('/api/:year/:department/:batch/departmentdetails', async (req, res) => {
+app.get('/api/:year/:department/departmentdetails', async (req, res) => {
   const dep = req.params.department;
   const year = req.params.year;
-  const batch = req.params.batch;
   const newID = year + dep;
   const collections = await mongoose.connection.db.listCollections().toArray();
   const collectionNames = collections.map((collection) => collection.name);
@@ -359,7 +335,6 @@ app.get('/api/:year/:department/:batch/departmentdetails', async (req, res) => {
   const formattedCollections = matchingCollections.map((collectionName) =>
     collectionName.slice(0, -1).toUpperCase()
   );
-
   // Organize data by sections
   const dataBySections = {};
   for (const modelName of formattedCollections) {
@@ -373,20 +348,18 @@ app.get('/api/:year/:department/:batch/departmentdetails', async (req, res) => {
       dataBySections[section].push(entry);
     });
   }
-  // console.log(dataBySections);
   res.status(200).json(dataBySections);
 });
 
 //2nd -- Student Dashboard Page --
 app.get(
-  '/api/:year/:department/:section/:batch/:email/studentdetails',
+  '/api/:year/:department/:section/:email/studentdetails',
   async (req, res) => {
     const email = req.params.email;
     const dep = req.params.department;
     const year = req.params.year;
     const section = req.params.section;
-    const batch = req.params.batch;
-    const newID = year + dep + batch + section;
+    const newID = year + dep + section;
     const DepartmentModel = Model[newID];
 
     const sectionToLoop = await DepartmentModel.find();
@@ -455,7 +428,6 @@ app.post(
         year,
         department,
         section,
-        batch,
         email,
         name,
         regNo,
@@ -472,13 +444,12 @@ app.post(
       }
       // const leaveforms = dep.filter((item) => item.email === email);
       // console.log('leaveforms ', leaveforms);
-      console.log('asgagafgdsgsdfg ', dep);
+      console.log('hello ');
 
       const fileData = {
         year,
         department,
         section,
-        batch,
         email,
         regNo,
         name,
@@ -562,7 +533,6 @@ app.get('/api/hod/files/:year/:department/:section', async (req, res) => {
         year: student.year,
         department: student.department,
         section: student.section,
-        batch: student.batch,
         status: student.status,
         dates: student.appliedDates,
       }));
@@ -602,7 +572,7 @@ app.post('/api/verified', async (req, res) => {
 //2nd success -- Accept in HOD Side
 app.post('/api/accepted', async (req, res) => {
   try {
-    let { id, year, department, section, batch, regNo, dates } = req.body;
+    let { id, year, department, section, regNo, dates } = req.body;
     console.log(id + ' ' + department);
     const dep = await LeaveForm.findOne({ department });
 
@@ -625,8 +595,7 @@ app.post('/api/accepted', async (req, res) => {
     // Save the changes to the LeaveForm document
     await dep.save();
 
-    const newID = year + department + batch + section;
-    console.log(newID);
+    const newID = year + department + section;
     const DepartmentModel = Model[newID];
 
     const sectionToLoop = await DepartmentModel.find();
@@ -684,13 +653,12 @@ app.post('/api/rejected', async (req, res) => {
 
 //2nd success --Leave Form Student Page --
 app.get(
-  '/api/:year/:department/:section/:batch/:email/absentdates',
+  '/api/:year/:department/:section/:email/absentdates',
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
     const section = req.params.section;
-    const batch = req.params.batch;
-    const newID = year + dep + batch + section;
+    const newID = year + dep + section;
     const DepartmentModel = Model[newID];
 
     const sectionToLoop = await DepartmentModel.find();
@@ -703,13 +671,12 @@ app.get(
 );
 
 app.get(
-  '/api/:year/:department/:section/:batch/:email/statuschecker',
+  '/api/:year/:department/:section/:email/statuschecker',
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
     const section = req.params.section;
-    const batch = req.params.batch;
-    const newID = year + dep + batch + section;
+    const newID = year + dep + section;
     const DepartmentModel = Model[newID];
 
     const sectionToLoop = await DepartmentModel.find();

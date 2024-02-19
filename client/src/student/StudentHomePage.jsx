@@ -17,7 +17,7 @@ const StudentHomePage = () => {
     const fetchStudentData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/studentdetails`
+          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${userDetails.email}/studentdetails`
         );
         if (response.ok) {
           const studentData = await response.json();
@@ -34,7 +34,7 @@ const StudentHomePage = () => {
     const statusChecker = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/statuschecker`
+          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${userDetails.email}/statuschecker`
         );
 
         if (response.ok) {
