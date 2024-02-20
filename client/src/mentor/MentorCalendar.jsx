@@ -6,6 +6,7 @@ import '../css/mentorcalendar.css';
 import GetUserDetails from '../functions/GetUserDetails';
 const MentorCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [students, setStudents] = useState([]);
   const { userDetails } = GetUserDetails();
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -22,6 +23,7 @@ const MentorCalendar = () => {
       );
       if (result.ok) {
         const res = await result.json();
+        setStudents(res);
         console.log('result ', res);
       }
       console.log('Date sent successfully:', formattedDate);
@@ -29,6 +31,7 @@ const MentorCalendar = () => {
       console.error('Error sending date to server:', error);
     }
   };
+  let sno = 1;
 
   return (
     <>
@@ -75,14 +78,35 @@ const MentorCalendar = () => {
               React JS{' '}
             </h3>
             <Calendar onChange={handleDateChange} value={selectedDate} />
-            {/* <p>The selected date is - {formattedDate}</p>
-      {formattedDate === '2024-02-20' ? (
-        <div>
-          <p>HI</p>
-        </div>
-      ) : (
-        ''
-      )} */}
+            <table className="home-today-table">
+              <tr>
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Section</th>
+                <th>Roll No</th>
+                <th>Present?</th>
+              </tr>
+
+              {students.map((item) => (
+                <tr key={item._id}>
+                  <td>{sno++}</td>
+                  <td>{item.name}</td>
+                  <td>{item.department}</td>
+                  <td>{item.section}</td>
+                  <td>{item.rollNo}</td>
+                  {item.presentStatus === 'yes' ? (
+                    <td style={{ backgroundColor: 'rgb(146, 255, 132)' }}>
+                      Present
+                    </td>
+                  ) : (
+                    <td style={{ backgroundColor: 'rgb(254, 158, 158)' }}>
+                      Absent
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </table>
           </div>
         </>
       ) : (

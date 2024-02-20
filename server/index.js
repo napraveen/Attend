@@ -516,7 +516,17 @@ app.get(
     const sectionToLoop = await DepartmentModel.find();
     const Date = req.params.formattedDate;
     console.log('Received date on server:', Date);
-    res.send(sectionToLoop);
+    console.log('sectionToLoop ', sectionToLoop);
+    const simplifiedData = sectionToLoop.map((item) => ({
+      name: item.name,
+      department: item.department,
+      year: item.year,
+      section: item.section,
+      rollNo: item.rollNo,
+      presentStatus: item.presentDates.includes(Date) ? 'yes' : 'no',
+    }));
+    console.log('simplifiedData ', simplifiedData);
+    res.send(simplifiedData);
   }
 );
 
