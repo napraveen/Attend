@@ -1,3 +1,21 @@
-.calendar-mentor {
+.calendar-right {
   margin-left: 20%;
+}
+
+.calendar-mentor {
+  margin-left: 20vw;
+  /* width: 2000px; */
+  margin-bottom: 10vh;
+}
+.custom-calendar {
+  width: 40vw;
+  /* height: 0vh; */
+  background-color: rgb(203, 255, 194);
+  /* color: white; */
+  border: 3px solid black;
+}
+
+h1 {
+  margin-bottom: 10vh;
+  margin-left: 20vw;
 }

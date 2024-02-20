@@ -71,13 +71,17 @@ const MentorCalendar = () => {
                 : '/attendance'
             }
           />
-          <div className="calendar-mentor">
-            <h3>
+          <div className="calendar-right">
+            <h1>Student Attendace Report</h1>
+            <div className="calendar-mentor">
               {' '}
-              Using the <i> react-calendar </i> library to create a calendar in
-              React JS{' '}
-            </h3>
-            <Calendar onChange={handleDateChange} value={selectedDate} />
+              <Calendar
+                onChange={handleDateChange}
+                value={selectedDate}
+                className="custom-calendar"
+              />
+            </div>
+
             <table className="home-today-table">
               <tr>
                 <th>S.No</th>
