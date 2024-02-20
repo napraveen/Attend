@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
 //---- To check ----
+const bodyParser = require('body-parser');
+
 // const bodyParser = require("body-parser")
 
 const cookieParser = require('cookie-parser');
@@ -495,6 +497,26 @@ app.post(
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
+  }
+);
+
+app.use(bodyParser.json());
+
+app.get(
+  '/api/mentor/report/date/:year/:department/:section/:batch/:formattedDate',
+  async (req, res) => {
+    const dep = req.params.department;
+    const year = req.params.year;
+    const section = req.params.section;
+    const batch = req.params.batch;
+    const newID = year + dep + batch + section;
+    const DepartmentModel = Model[newID];
+    console.log('deparmentmodel ', dep, year, section, newID, DepartmentModel);
+
+    const sectionToLoop = await DepartmentModel.find();
+    const Date = req.params.formattedDate;
+    console.log('Received date on server:', Date);
+    res.send(sectionToLoop);
   }
 );
 
