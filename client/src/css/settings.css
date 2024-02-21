@@ -1,0 +1,49 @@
+.settings-edit-profile {
+  /* display: block; */
+  margin-left: 20%;
+}
+.settings-edit-profile {
+  margin-top: 4vh;
+}
+
+.settings-edit-profile input {
+  width: 250px;
+  height: 50px;
+  margin-right: 4vw;
+  margin-top: 3vh;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+}
+
+.settings-edit-profile input::placeholder {
+  padding-left: 30px;
+  font-size: 13px;
+}
+.settings-edit-profile button {
+  height: 50px;
+  width: 250px;
+  background-color: aquamarine;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.settings-edit-profile button:hover {
+  background-color: rgb(53, 226, 169);
+}
+form {
+  display: flex;
+  flex-wrap: wrap;
+  /* margin-top: vh; */
+}
+.settings-mentor-div {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+}
+button {
+  margin-top: 5vh;
+  /* margin-left: 1 0px; */
+}

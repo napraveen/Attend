@@ -10,7 +10,8 @@
 .custom-calendar {
   width: 40vw;
   /* height: 0vh; */
-  background-color: rgb(203, 255, 194);
+  background-color: rgb(255, 255, 255);
+  font-weight: 900;
   /* color: white; */
   border: 3px solid black;
 }

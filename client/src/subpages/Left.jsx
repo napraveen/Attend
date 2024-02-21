@@ -106,7 +106,7 @@ const Left = ({
           </div>
         </Link>
 
-        <Link to="#">
+        <Link to="/settings">
           <div
             className="home-group-icon-text"
             style={{ backgroundColor: iconBg5 }}

@@ -791,6 +791,41 @@ app.get(
     }
   }
 );
+
+app.post(
+  '/api/:year/:department/:section/:batch/:email/editprofile',
+  async (req, res) => {
+    const dep = req.params.department;
+    const year = req.params.year;
+    const section = req.params.section;
+    const batch = req.params.batch;
+    const email = req.params.email;
+    const { studentData } = req.body;
+    console.log(studentData);
+    try {
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      user.name = studentData.name;
+      user.year = studentData.year;
+      user.department = studentData.department;
+      user.section = studentData.section;
+      user.batch = studentData.batch;
+      user.email = studentData.email;
+      console.log(user);
+      user.save();
+      console.log('User profile updated successfully');
+      return res
+        .status(200)
+        .json({ message: 'User profile updated successfully' });
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+);
 // app.get('/api/:department/:email/statuschecker', async (req, res) => {
 //   const email = req.params.email;
 //   const dep = req.params.department;
