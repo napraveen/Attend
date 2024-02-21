@@ -42,6 +42,34 @@ const LeaveForm = () => {
                 ? '/leaveform-hod'
                 : '/attendance'
             }
+            link3={
+              userDetails.category === 'student'
+                ? '/edit'
+                : userDetails.category === 'hod'
+                ? '/edit'
+                : '/edit'
+            }
+            link4={
+              userDetails.category === 'student'
+                ? '/student-calendar'
+                : userDetails.category === 'hod'
+                ? '/hod-calendar'
+                : '/mentor-calendar'
+            }
+            link5={
+              userDetails.category === 'student'
+                ? '/settings'
+                : userDetails.category === 'hod'
+                ? '/settings'
+                : '/settings'
+            }
+            link6={
+              userDetails.category === 'student'
+                ? '/student-leaveform'
+                : userDetails.category === 'hod'
+                ? '/hod-leaveform'
+                : '/leaveform-mentor'
+            }
           />
           <LFMRight />
         </div>

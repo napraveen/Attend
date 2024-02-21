@@ -25,6 +25,10 @@ const Left = ({
   menu6,
   link1,
   link2,
+  link3,
+  link4,
+  link5,
+  link6,
 }) => {
   const { userDetails } = GetUserDetails();
   return (
@@ -45,7 +49,7 @@ const Left = ({
         </Link>
       </div>
       <div className="home-sidebar">
-        <Link to="/">
+        <Link to={link1}>
           <div
             className="home-group-icon-text"
             style={{ backgroundColor: iconBg1 }}
@@ -77,7 +81,7 @@ const Left = ({
             <p style={{ color: iconText2 }}>{menu2}</p>
           </div>
         </Link>
-        <Link to="/edit">
+        <Link to={link3}>
           <div
             className="home-group-icon-text"
             style={{ backgroundColor: iconBg3 }}
@@ -91,7 +95,7 @@ const Left = ({
             <p style={{ color: iconText3 }}>{menu3}</p>
           </div>
         </Link>
-        <Link to="/mentor-calendar">
+        <Link to={link4}>
           <div
             className="home-group-icon-text"
             style={{ backgroundColor: iconBg4 }}
@@ -106,7 +110,7 @@ const Left = ({
           </div>
         </Link>
 
-        <Link to="/settings">
+        <Link to={link5}>
           <div
             className="home-group-icon-text"
             style={{ backgroundColor: iconBg5 }}
