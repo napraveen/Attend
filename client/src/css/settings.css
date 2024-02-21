@@ -33,17 +33,15 @@
 .settings-edit-profile button:hover {
   background-color: rgb(53, 226, 169);
 }
-form {
+.settings-edit-profile form {
   display: flex;
   flex-wrap: wrap;
-  /* margin-top: vh; */
 }
 .settings-mentor-div {
   margin-top: 10vh;
   display: flex;
   flex-direction: column;
 }
-button {
+.settings-edit-profile button {
   margin-top: 5vh;
-  /* margin-left: 1 0px; */
 }
