@@ -16,7 +16,7 @@
   border: 3px solid black;
 }
 
-h1 {
+.calendar-right h1 {
   margin-bottom: 10vh;
   margin-left: 20vw;
 }

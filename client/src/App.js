@@ -9,6 +9,7 @@ import LeaveFormMentor from './mentor/LeaveFormMentor';
 import LeaveFormHod from './hod/LeaveFormHod';
 import MentorCalendar from './mentor/MentorCalendar';
 import Settings from './pages/Settings';
+import StudentCalendar from './student/StudentCalendar';
 function App() {
   return (
     <div className="App">
@@ -23,6 +24,7 @@ function App() {
         <Route path="/leaveform-mentor" element={<LeaveFormMentor />} />
         <Route path="/leaveform-hod" element={<LeaveFormHod />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/student-calendar" element={<StudentCalendar />} />
       </Routes>
     </div>
   );
