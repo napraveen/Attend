@@ -4,7 +4,7 @@ const app = express();
 const { User } = require('./db');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const multer = require('multer');
+// const multer = require('multer');
 const path = require('path');
 //---- To check ----
 const bodyParser = require('body-parser');
@@ -32,7 +32,7 @@ const {
 // const Grid = require('gridfs-stream');
 const { use } = require('./routes/auth');
 const { addListener } = require('nodemon');
-const { user } = require('firebase-functions/v1/auth');
+// const { user } = require('firebase-functions/v1/auth');
 app.use(express.json());
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
