@@ -81,7 +81,7 @@ const LeaveFormRight = () => {
     const fetchAbsentDates = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${userDetails.email}/absentdates`
+          `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${userDetails.email}/absentdates`
         );
 
         setAbsentDates(response.data.unAppliedDates);
@@ -143,7 +143,7 @@ const LeaveFormRight = () => {
       console.log('updatedstudentdata ' + JSON.stringify(updatedStudentData));
 
       await axios.post(
-        `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/submitleaveform`,
+        `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/submitleaveform`,
         updatedStudentData
       );
       // const { success, message } = data;

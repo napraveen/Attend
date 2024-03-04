@@ -31,7 +31,7 @@ const Home = () => {
   const findStudent = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4001/api/findstudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${registerNo}`
+        `http://localhost:3050/api/findstudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${registerNo}`
       );
       if (response.ok) {
         setShowTable(true);
@@ -48,7 +48,7 @@ const Home = () => {
   };
   const handleRemoveStudent = async () => {
     const removedResponse = await fetch(
-      `http://localhost:4001/api/deletestudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${studentFound._id}/${studentFound.email}`,
+      `http://localhost:3050/api/deletestudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${studentFound._id}/${studentFound.email}`,
       {
         method: 'DELETE',
       }
@@ -78,7 +78,7 @@ const Home = () => {
     console.log('huuuhuhuu ', studentData);
     try {
       await axios.post(
-        `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/addstudents`,
+        `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/addstudents`,
         studentData
       );
       const { username, password, email } = studentData;
@@ -90,7 +90,7 @@ const Home = () => {
         username,
       };
 
-      await axios.post('http://localhost:4001/auth/signup', userData, {
+      await axios.post('http://localhost:3050/api/auth/signup', userData, {
         withCredentials: true,
       });
       // const { success, message } = data;

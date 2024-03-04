@@ -9,7 +9,7 @@ const GetUserDetails = () => {
     const GetUserDetails = async () => {
       console.log(username);
       const response = await fetch(
-        `http://localhost:4001/api/user/${username}`
+        `http://localhost:3050/api/user/${username}`
       );
 
       const user = await response.json();

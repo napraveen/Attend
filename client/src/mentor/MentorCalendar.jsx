@@ -26,7 +26,7 @@ const MentorCalendar = () => {
   const sendDateToServer = async (formattedDate) => {
     try {
       const result = await fetch(
-        `http://localhost:4001/api/mentor/report/date/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${formattedDate}`
+        `http://localhost:3050/api/mentor/report/date/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${formattedDate}`
       );
       if (result.ok) {
         const res = await result.json();

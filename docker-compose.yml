@@ -1,0 +1,38 @@
+version: "3"
+services:
+  frontend:
+    depends_on:
+      - mongodb
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client/:/app
+      - /app/node_modules
+  backend:
+    depends_on:
+      - mongodb
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./server/:/app
+      - /app/node_modules
+  server:
+    depends_on:
+      - frontend
+      - backend
+    image: nginx:latest
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "3050:80"
+    command: [nginx-debug, '-g',"daemon off;"]
+  
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - ./mongodb/:/docker-entrypoint-initdb.d/

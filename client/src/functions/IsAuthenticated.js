@@ -8,7 +8,7 @@ const IsAuthenticated = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4001/auth/check-auth', {
+      .get('http://localhost:3050/api/auth/check-auth', {
         withCredentials: true,
       })
       .then((response) => {

@@ -14,7 +14,7 @@ const LFHRight = () => {
     const fetchFiles = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4001/api/hod/files/${userDetails.year}/${userDetails.department}/${userDetails.section}`
+          `http://localhost:3050/api/hod/files/${userDetails.year}/${userDetails.department}/${userDetails.section}`
         );
         // console.log('files' + JSON.stringify(response));
 
@@ -40,7 +40,7 @@ const LFHRight = () => {
       dates: file.dates,
     };
     const res = await axios.post(
-      `http://localhost:4001/api/accepted`,
+      `http://localhost:3050/api/accepted`,
       studentdata
     );
     console.log('hiiiiiiiiii ', res);
@@ -60,7 +60,7 @@ const LFHRight = () => {
       department: file.department,
     };
     const res = await axios.post(
-      `http://localhost:4001/api/rejected`,
+      `http://localhost:3050/api/rejected`,
       studentdata
     );
     console.log(res);

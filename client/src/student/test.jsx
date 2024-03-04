@@ -16,7 +16,7 @@ const StudentHomePage = () => {
   //   const fetchStudentData = async () => {
   //     try {
   //       const response = await fetch(
-  //         `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/studentdetails`
+  //         `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/studentdetails`
   //       );
   //       if (response.ok) {
   //         const studentData = await response.json();
@@ -32,7 +32,7 @@ const StudentHomePage = () => {
 
   //   const statusChecker = async () => {
   //     const response = await fetch(
-  //       `http://localhost:4001/api/${userDetails.department}/${userDetails.email}/statuschecker`
+  //       `http://localhost:3050/api/${userDetails.department}/${userDetails.email}/statuschecker`
   //     );
   //   };
   //   fetchStudentData();
@@ -43,7 +43,7 @@ const StudentHomePage = () => {
     const fetchStudentData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/studentdetails`
+          `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/studentdetails`
         );
         if (response.ok) {
           const studentData = await response.json();
@@ -60,7 +60,7 @@ const StudentHomePage = () => {
     const statusChecker = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4001/api/${userDetails.department}/${userDetails.email}/statuschecker`
+          `http://localhost:3050/api/${userDetails.department}/${userDetails.email}/statuschecker`
         );
 
         if (response.ok) {
@@ -139,7 +139,7 @@ export default StudentHomePage;
 const statusChecker = async () => {
   try {
     const response = await fetch(
-      `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/statuschecker`
+      `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.email}/statuschecker`
     );
 
     if (response.ok) {

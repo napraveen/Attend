@@ -29,7 +29,7 @@ const Settings = () => {
   const handleEditProfile = async (e) => {
     e.preventDefault();
     await axios.post(
-      `http://localhost:4001/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${userDetails.email}/editprofile`,
+      `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${userDetails.email}/editprofile`,
       { studentData }
     );
     setStudentData({

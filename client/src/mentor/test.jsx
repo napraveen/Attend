@@ -96,7 +96,7 @@ const LFMRight = () => {
     const fetchFiles = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4001/api/files/${userDetails.year}/${userDetails.department}/${userDetails.section}`
+          `http://localhost:3050/api/files/${userDetails.year}/${userDetails.department}/${userDetails.section}`
         );
         // console.log('files' + JSON.stringify(response));
 
@@ -110,7 +110,7 @@ const LFMRight = () => {
       fetchFiles();
       axios
         .get(
-          `http://localhost:4001/api/files/${userDetails.year}/${userDetails.department}/${userDetails.section}`
+          `http://localhost:3050/api/files/${userDetails.year}/${userDetails.department}/${userDetails.section}`
         )
         .then((response) => {
           const byteValues = response.data.files[4].file.data.data;

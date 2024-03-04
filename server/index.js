@@ -46,13 +46,13 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: '*',
   })
 );
 app.use(express.json());
 app.use(cookieParser());
 mongoose
-  .connect('mongodb://0.0.0.0/test')
+  .connect('mongodb://user:password@mongodb:27017/test')
   .then(() => console.log('MongoDB is  connected successfully'))
   .catch((err) => console.error(err));
 
@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 });
 
 //2nd success -- To get the userName
-app.get('/api/user/:username', async (req, res) => {
+app.get('/user/:username', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
     res.json(user);
@@ -76,7 +76,7 @@ app.get('/api/user/:username', async (req, res) => {
 });
 
 //success -- Retriving All Datas from Student Model
-// app.get('/api/students', async (req, res) => {
+// app.get('/students', async (req, res) => {
 //   try {
 //     const dataIECEA = await IECEA.find();
 //     const dataIIECEA = await IIECEA.find();
@@ -106,7 +106,7 @@ const Model = {
 };
 //2nd success -- update attendance
 app.post(
-  '/api/updateAttendance/:year/:department/:section/:batch',
+  '/updateAttendance/:year/:department/:section/:batch',
   async (req, res) => {
     try {
       const { presentStudents, absentStudents } = req.body;
@@ -163,7 +163,7 @@ app.post(
 );
 
 //2nd sucess -- Retriving Submission Status
-app.get('/api/submissionstatus/:departmentId', async (req, res) => {
+app.get('/submissionstatus/:departmentId', async (req, res) => {
   try {
     const departmentId = req.params.departmentId;
     const newDate = new Date().toISOString().slice(0, 10);
@@ -186,7 +186,7 @@ app.get('/api/submissionstatus/:departmentId', async (req, res) => {
 
 //2nd success -- Add Student in Edit Page
 app.post(
-  '/api/:year/:department/:section/:batch/addstudents',
+  '/:year/:department/:section/:batch/addstudents',
   async (req, res) => {
     try {
       const {
@@ -236,7 +236,7 @@ app.post(
 
 //2nd success -- Searching in Remove Student Edit Page
 app.get(
-  '/api/findstudent/:year/:department/:section/:batch/:registerno',
+  '/findstudent/:year/:department/:section/:batch/:registerno',
   async (req, res) => {
     const regNo = req.params.registerno;
     const dep = req.params.department;
@@ -258,7 +258,7 @@ app.get(
 
 //2nd success -- Deletion in Edit Page
 app.delete(
-  '/api/deletestudent/:year/:department/:section/:batch/:studentid/:email',
+  '/deletestudent/:year/:department/:section/:batch/:studentid/:email',
   async (req, res) => {
     try {
       const studentIdToDelete = req.params.studentid;
@@ -298,7 +298,7 @@ app.delete(
 
 //2nd success -- Retriving class details
 app.get(
-  '/api/:year/:department/:section/:batch/classdetails',
+  '/:year/:department/:section/:batch/classdetails',
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -313,7 +313,7 @@ app.get(
   }
 );
 
-// app.get('/api/:year/:department/departmentdetails', async (req, res) => {
+// app.get('/:year/:department/departmentdetails', async (req, res) => {
 //   const dep = req.params.department;
 //   const year = req.params.year;
 //   const newID = year + dep;
@@ -346,7 +346,7 @@ app.get(
 // });
 
 //2nd success -- Getting All details of a Department in Dashboard Page of HOD --
-app.get('/api/:year/:department/:batch/departmentdetails', async (req, res) => {
+app.get('/:year/:department/:batch/departmentdetails', async (req, res) => {
   const dep = req.params.department;
   const year = req.params.year;
   const batch = req.params.batch;
@@ -381,7 +381,7 @@ app.get('/api/:year/:department/:batch/departmentdetails', async (req, res) => {
 
 //2nd -- Student Dashboard Page --
 app.get(
-  '/api/:year/:department/:section/:batch/:email/studentdetails',
+  '/:year/:department/:section/:batch/:email/studentdetails',
   async (req, res) => {
     const email = req.params.email;
     const dep = req.params.department;
@@ -399,7 +399,7 @@ app.get(
 );
 
 // app.post(
-//   '/api/:year/:department/:section/submitleaveform',
+//   '/:year/:department/:section/submitleaveform',
 //   async (req, res) => {
 //     try {
 //       const { year, department, section, email } = req.body;
@@ -450,7 +450,7 @@ app.use(express.json());
 
 //2nd success --Leave Form - Student Page --
 app.post(
-  '/api/:year/:department/:section/submitleaveform',
+  '/:year/:department/:section/submitleaveform',
   async (req, res) => {
     try {
       const {
@@ -503,7 +503,7 @@ app.post(
 app.use(bodyParser.json());
 
 app.get(
-  '/api/mentor/report/date/:year/:department/:section/:batch/:formattedDate',
+  '/mentor/report/date/:year/:department/:section/:batch/:formattedDate',
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -531,7 +531,7 @@ app.get(
 );
 
 //2nd success -- Leave Form- Mentor
-app.get('/api/files/:year/:department/:section', async (req, res) => {
+app.get('/files/:year/:department/:section', async (req, res) => {
   try {
     const { year, department, section } = req.params;
 
@@ -570,7 +570,7 @@ app.get('/api/files/:year/:department/:section', async (req, res) => {
 });
 
 //2nd success -- Leave Form- HOD
-app.get('/api/hod/files/:year/:department/:section', async (req, res) => {
+app.get('/hod/files/:year/:department/:section', async (req, res) => {
   try {
     const { year, department, section } = req.params;
 
@@ -609,7 +609,7 @@ app.get('/api/hod/files/:year/:department/:section', async (req, res) => {
 });
 
 //2nd success -- Verified in Mentor Side
-app.post('/api/verified', async (req, res) => {
+app.post('/verified', async (req, res) => {
   try {
     let { id, department } = req.body;
     console.log(id + ' ' + department);
@@ -626,13 +626,13 @@ app.post('/api/verified', async (req, res) => {
 
     res.status(200).json({ message: 'Verification successful' });
   } catch (error) {
-    console.error('Error in /api/verified:', error);
+    console.error('Error in /verified:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
 
 //2nd success -- Accept in HOD Side
-app.post('/api/accepted', async (req, res) => {
+app.post('/accepted', async (req, res) => {
   try {
     let { id, year, department, section, batch, regNo, dates } = req.body;
     console.log(id + ' ' + department);
@@ -685,13 +685,13 @@ app.post('/api/accepted', async (req, res) => {
 
     res.status(200).json({ message: 'Accepted successfuly' });
   } catch (error) {
-    console.error('Error in /api/accepted:', error);
+    console.error('Error in /accepted:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
 
 // 2nd success -- Rejected in HOD And Mentor Side
-app.post('/api/rejected', async (req, res) => {
+app.post('/rejected', async (req, res) => {
   try {
     let { id, department } = req.body;
     console.log(id + ' ' + department);
@@ -709,14 +709,14 @@ app.post('/api/rejected', async (req, res) => {
 
     res.status(200).json({ message: 'Rejected Successfully' });
   } catch (error) {
-    console.error('Error in /api/rejected:', error);
+    console.error('Error in /rejected:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
 
 //2nd success --Leave Form Student Page --
 app.get(
-  '/api/:year/:department/:section/:batch/:email/absentdates',
+  '/:year/:department/:section/:batch/:email/absentdates',
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -735,7 +735,7 @@ app.get(
 );
 
 app.get(
-  '/api/:year/:department/:section/:batch/:email/statuschecker',
+  '/:year/:department/:section/:batch/:email/statuschecker',
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -793,7 +793,7 @@ app.get(
 );
 
 app.post(
-  '/api/:year/:department/:section/:batch/:email/editprofile',
+  '/:year/:department/:section/:batch/:email/editprofile',
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -826,7 +826,7 @@ app.post(
     }
   }
 );
-// app.get('/api/:department/:email/statuschecker', async (req, res) => {
+// app.get('/:department/:email/statuschecker', async (req, res) => {
 //   const email = req.params.email;
 //   const dep = req.params.department;
 
@@ -845,7 +845,7 @@ app.post(
 //     // Handle the found data and send a response
 //     res.status(200).json({ found });
 //   } catch (error) {
-//     console.error('Error in /api/:department/:email/statuschecker:', error);
+//     console.error('Error in /:department/:email/statuschecker:', error);
 //     res.status(500).json({ message: 'Internal server error' });
 //   }
 // });
@@ -855,7 +855,7 @@ app.listen(4001, () => {
 });
 
 //FAILURE : BUT MAY BE USED LATER
-// app.get('/api/collegestudents', async (req, res) => {
+// app.get('/collegestudents', async (req, res) => {
 //   const year = 'I';
 //   const department = 'MECH';
 //   const section = 'A';
