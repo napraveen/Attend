@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import GetUserDetails from '../functions/GetUserDetails';
-import Left from '../subpages/Left';
-import { Link } from 'react-router-dom';
-import '../css/edit.css';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import GetUserDetails from "../functions/GetUserDetails";
+import Left from "../subpages/Left";
+import { Link } from "react-router-dom";
+import "../css/edit.css";
+import axios from "axios";
 const Home = () => {
   const { userDetails } = GetUserDetails();
   const [isAddStudentClassClicked, setisAddStudentClassClicked] =
     useState(true);
   const [isRemoveStudentClassClicked, setisRemoveStudentClassClicked] =
     useState(true);
-  const [registerNo, setRegisterNo] = useState('');
-  const [studentFound, setStudentFound] = useState('');
+  const [registerNo, setRegisterNo] = useState("");
+  const [studentFound, setStudentFound] = useState("");
   const [showTable, setShowTable] = useState(true);
 
   const addStudentClass = () => {
@@ -21,11 +21,11 @@ const Home = () => {
     setisRemoveStudentClassClicked(!isRemoveStudentClassClicked);
   };
   const studentFormClass = {
-    display: isAddStudentClassClicked ? 'none' : 'block',
+    display: isAddStudentClassClicked ? "none" : "block",
   };
 
   const studentRemoveClass = {
-    display: isRemoveStudentClassClicked ? 'none' : 'block',
+    display: isRemoveStudentClassClicked ? "none" : "block",
   };
 
   const findStudent = async () => {
@@ -40,17 +40,17 @@ const Home = () => {
         console.log(student);
       } else {
         setStudentFound(null); // Reset the state when student is not found
-        console.log('Student not found');
+        console.log("Student not found");
       }
     } catch (error) {
-      console.error('Error finding student:', error);
+      console.error("Error finding student:", error);
     }
   };
   const handleRemoveStudent = async () => {
     const removedResponse = await fetch(
       `http://localhost:3050/api/deletestudent/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${studentFound._id}/${studentFound.email}`,
       {
-        method: 'DELETE',
+        method: "DELETE",
       }
     );
     if (removedResponse.ok) {
@@ -59,23 +59,32 @@ const Home = () => {
   };
 
   const [studentData, setStudentData] = useState({
-    name: '',
-    year: '',
-    department: '',
-    section: '',
-    batch: '',
-    departmentId: '',
-    rollNo: '',
-    registerNo: '',
-    mobileNo: '',
-    email: '',
-    username: '',
-    password: '',
+    name: "",
+    year: "",
+    department: "",
+    section: "",
+    batch: "",
+    departmentId: "",
+    rollNo: "",
+    registerNo: "",
+    mobileNo: "",
+    email: "",
+    username: "",
+    password: "",
   });
+  useEffect(() => {
+    setStudentData({
+      year: userDetails?.year ?? "",
+      department: userDetails?.department ?? "",
+      section: userDetails?.section ?? "",
+      batch: userDetails?.batch ?? "",
+      departmentId: userDetails?.department + userDetails?.section ?? "",
+    });
+  }, [userDetails]);
 
   const handleSubmitAddStudent = async (e) => {
     e.preventDefault();
-    console.log('huuuhuhuu ', studentData);
+    console.log("huuuhuhuu ", studentData);
     try {
       await axios.post(
         `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/addstudents`,
@@ -90,26 +99,26 @@ const Home = () => {
         username,
       };
 
-      await axios.post('http://localhost:3050/api/auth/signup', userData, {
+      await axios.post("http://localhost:3050/api/auth/signup", userData, {
         withCredentials: true,
       });
       // const { success, message } = data;
       setStudentData({
-        name: '',
-        year: '',
-        department: '',
-        section: '',
-        batch: '',
-        departmentId: '',
-        rollNo: '',
-        registerNo: '',
-        mobileNo: '',
-        email: '',
-        username: '',
-        password: '',
+        name: "",
+        year: "",
+        department: "",
+        section: "",
+        batch: "",
+        departmentId: "",
+        rollNo: "",
+        registerNo: "",
+        mobileNo: "",
+        email: "",
+        username: "",
+        password: "",
       });
     } catch (err) {
-      console.error('Error adding student:', err);
+      console.error("Error adding student:", err);
     }
   };
 
@@ -141,51 +150,51 @@ const Home = () => {
                   iconText5=""
                   menu1="Dashboard"
                   menu2={
-                    userDetails.category === 'student'
-                      ? 'Leave Form'
-                      : userDetails.category === 'hod'
-                      ? 'Leaveform'
-                      : 'Attendance'
+                    userDetails.category === "student"
+                      ? "Leave Form"
+                      : userDetails.category === "hod"
+                      ? "Leaveform"
+                      : "Attendance"
                   }
                   menu3="Edit"
                   menu4="Calendar"
                   menu5="Settings"
-                  menu6={userDetails.category === 'mentor' ? 'Leave Form' : ''}
+                  menu6={userDetails.category === "mentor" ? "Leave Form" : ""}
                   link1="/"
                   link2={
-                    userDetails.category === 'student'
-                      ? '/leaveform'
-                      : userDetails.category === 'hod'
-                      ? '/leaveform-hod'
-                      : '/attendance'
+                    userDetails.category === "student"
+                      ? "/leaveform"
+                      : userDetails.category === "hod"
+                      ? "/leaveform-hod"
+                      : "/attendance"
                   }
                   link3={
-                    userDetails.category === 'student'
-                      ? '/edit'
-                      : userDetails.category === 'hod'
-                      ? '/edit'
-                      : '/edit'
+                    userDetails.category === "student"
+                      ? "/edit"
+                      : userDetails.category === "hod"
+                      ? "/edit"
+                      : "/edit"
                   }
                   link4={
-                    userDetails.category === 'student'
-                      ? '/student-calendar'
-                      : userDetails.category === 'hod'
-                      ? '/hod-calendar'
-                      : '/mentor-calendar'
+                    userDetails.category === "student"
+                      ? "/student-calendar"
+                      : userDetails.category === "hod"
+                      ? "/hod-calendar"
+                      : "/mentor-calendar"
                   }
                   link5={
-                    userDetails.category === 'student'
-                      ? '/settings'
-                      : userDetails.category === 'hod'
-                      ? '/settings'
-                      : '/settings'
+                    userDetails.category === "student"
+                      ? "/settings"
+                      : userDetails.category === "hod"
+                      ? "/settings"
+                      : "/settings"
                   }
                   link6={
-                    userDetails.category === 'student'
-                      ? '/student-leaveform'
-                      : userDetails.category === 'hod'
-                      ? '/hod-leaveform'
-                      : '/leaveform-mentor'
+                    userDetails.category === "student"
+                      ? "/student-leaveform"
+                      : userDetails.category === "hod"
+                      ? "/hod-leaveform"
+                      : "/leaveform-mentor"
                   }
                 />
                 <div className="edit-right">
@@ -206,6 +215,7 @@ const Home = () => {
                         type="text"
                         name="year"
                         value={studentData.year}
+                        readOnly
                         onChange={handleChange}
                         placeholder="Year of Study"
                       />
@@ -213,6 +223,7 @@ const Home = () => {
                         type="text"
                         name="department"
                         value={studentData.department}
+                        readOnly
                         onChange={handleChange}
                         placeholder="Department"
                       />
@@ -220,6 +231,7 @@ const Home = () => {
                         type="text"
                         name="section"
                         value={studentData.section}
+                        readOnly
                         onChange={handleChange}
                         placeholder="Section"
                       />
@@ -227,6 +239,7 @@ const Home = () => {
                         type="text"
                         name="batch"
                         value={studentData.batch}
+                        readOnly
                         onChange={handleChange}
                         placeholder="Batch"
                       />
@@ -234,6 +247,7 @@ const Home = () => {
                         type="text"
                         name="departmentId"
                         value={studentData.departmentId}
+                        readOnly
                         onChange={handleChange}
                         placeholder="DepartmentId"
                       />
@@ -264,7 +278,7 @@ const Home = () => {
                         name="email"
                         value={studentData.email}
                         className="signup-email"
-                        placeholder="Enter your email"
+                        placeholder="Enter student email"
                         onChange={handleChange}
                       />
 
@@ -273,7 +287,7 @@ const Home = () => {
                         name="username"
                         className="signup-username"
                         value={studentData.username}
-                        placeholder="Enter your username"
+                        placeholder="Enter student username"
                         onChange={handleChange}
                       />
                       <input
@@ -281,7 +295,7 @@ const Home = () => {
                         name="password"
                         className="signup-password"
                         value={studentData.password}
-                        placeholder="Enter your password"
+                        placeholder="Create student password"
                         onChange={handleChange}
                       />
                       <button type="submit">Submit</button>
@@ -326,7 +340,7 @@ const Home = () => {
                             <td>{studentFound.section}</td>
                             <td>{studentFound.rollNo}</td>
                             <td
-                              style={{ color: 'red', cursor: 'pointer' }}
+                              style={{ color: "red", cursor: "pointer" }}
                               onClick={handleRemoveStudent}
                             >
                               Remove

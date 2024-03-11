@@ -1,17 +1,17 @@
-const express = require('express');
+const express = require("express");
 
 const app = express();
-const { User } = require('./db');
-const cors = require('cors');
-const mongoose = require('mongoose');
+const { User } = require("./db");
+const cors = require("cors");
+const mongoose = require("mongoose");
 // const multer = require('multer');
-const path = require('path');
+const path = require("path");
 //---- To check ----
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 // const bodyParser = require("body-parser")
 
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 // const data = require('./data');
 const {
   IECE2023A,
@@ -28,10 +28,10 @@ const {
   IVECE2020C,
   submittedDates,
   LeaveForm,
-} = require('./db');
+} = require("./db");
 // const Grid = require('gridfs-stream');
-const { use } = require('./routes/auth');
-const { addListener } = require('nodemon');
+const { use } = require("./routes/auth");
+const { addListener } = require("nodemon");
 // const { user } = require('firebase-functions/v1/auth');
 app.use(express.json());
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -46,24 +46,24 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: '*',
+    origin: "*",
   })
 );
 app.use(express.json());
 app.use(cookieParser());
 mongoose
-  .connect('mongodb://user:password@mongodb:27017/test')
-  .then(() => console.log('MongoDB is  connected successfully'))
+  .connect("mongodb://user:password@mongodb:27017/test")
+  .then(() => console.log("MongoDB is  connected successfully"))
   .catch((err) => console.error(err));
 
-app.use('/auth', require('./routes/auth'));
-app.use('/posts', require('./routes/posts'));
-app.get('/', (req, res) => {
-  res.send('Hello');
+app.use("/auth", require("./routes/auth"));
+app.use("/posts", require("./routes/posts"));
+app.get("/", (req, res) => {
+  res.send("Hello");
 });
 
 //2nd success -- To get the userName
-app.get('/user/:username', async (req, res) => {
+app.get("/user/:username", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
     res.json(user);
@@ -71,7 +71,7 @@ app.get('/user/:username', async (req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -106,38 +106,38 @@ const Model = {
 };
 
 const departments = [
-  'ECEA',
-  'ECEB',
-  'ECEC',
-  'MECHA',
-  'MECHB',
-  'MECHC',
-  'EEEA',
-  'EEEB',
-  'EEEC',
-  'ITA',
-  'ITB',
-  'ITC',
-  'CSEA',
-  'CSEB',
-  'CSEC',
-  'ADSA',
-  'ADSB',
-  'ADSC',
-  'AMLA',
-  'AMLB',
-  'AMLC',
-  'CHEMA',
-  'CHEMB',
-  'CHEMC',
-  'BIOA',
-  'BIOB',
-  'BIOC',
+  "ECEA",
+  "ECEB",
+  "ECEC",
+  "MECHA",
+  "MECHB",
+  "MECHC",
+  "EEEA",
+  "EEEB",
+  "EEEC",
+  "ITA",
+  "ITB",
+  "ITC",
+  "CSEA",
+  "CSEB",
+  "CSEC",
+  "ADSA",
+  "ADSB",
+  "ADSC",
+  "AMLA",
+  "AMLB",
+  "AMLC",
+  "CHEMA",
+  "CHEMB",
+  "CHEMC",
+  "BIOA",
+  "BIOB",
+  "BIOC",
 ];
 
 //2nd success -- update attendance
 app.post(
-  '/updateAttendance/:year/:department/:section/:batch',
+  "/updateAttendance/:year/:department/:section/:batch",
   async (req, res) => {
     try {
       const { presentStudents, absentStudents } = req.body;
@@ -153,14 +153,14 @@ app.post(
       const submittedDepartment = await submittedDates.findOne({
         departmentId: dep + section,
       });
-      if(!submittedDepartment){
-          departments.map((item) => {
-    submittedDates.create({
-      departmentId: item,
-    });
-  });
+      if (!submittedDepartment) {
+        departments.map((item) => {
+          submittedDates.create({
+            departmentId: item,
+          });
+        });
       }
-      
+
       if (!submittedDepartment.dates.includes(newDate)) {
         for (const student of sectionToLoop) {
           const isPresent = presentStudents.some((presentStudent) => {
@@ -184,7 +184,7 @@ app.post(
         // const departmentInstance = new DepartmentModel();
         // await departmentInstance.save();
 
-        res.status(200).json({ message: 'Attendance updated successfully' });
+        res.status(200).json({ message: "Attendance updated successfully" });
 
         // Update the submittedDates document
         await submittedDates.findOneAndUpdate(
@@ -194,14 +194,14 @@ app.post(
         );
       }
     } catch (error) {
-      console.error('Error updating attendance:', error);
-      res.status(500).json({ error: 'Failed to update attendance' });
+      console.error("Error updating attendance:", error);
+      res.status(500).json({ error: "Failed to update attendance" });
     }
   }
 );
 
 //2nd sucess -- Retriving Submission Status
-app.get('/submissionstatus/:departmentId', async (req, res) => {
+app.get("/submissionstatus/:departmentId", async (req, res) => {
   try {
     const departmentId = req.params.departmentId;
     const newDate = new Date().toISOString().slice(0, 10);
@@ -212,69 +212,66 @@ app.get('/submissionstatus/:departmentId', async (req, res) => {
     });
 
     if (submittedDepartment && submittedDepartment.dates.includes(newDate)) {
-      res.status(200).json({ message: 'true' });
+      res.status(200).json({ message: "true" });
     } else {
-      res.status(200).json({ message: 'false' });
+      res.status(200).json({ message: "false" });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Internal Server Error' });
-    console.error('Error fetching submission status:', error);
+    res.status(500).json({ message: "Internal Server Error" });
+    console.error("Error fetching submission status:", error);
   }
 });
 
 //2nd success -- Add Student in Edit Page
-app.post(
-  '/:year/:department/:section/:batch/addstudents',
-  async (req, res) => {
-    try {
-      const {
-        name,
-        year,
-        department,
-        section,
-        departmentId,
-        category,
-        email,
-        username,
-        rollNo,
-        registerNo,
-        mobileNo,
-        batch,
-      } = req.body;
+app.post("/:year/:department/:section/:batch/addstudents", async (req, res) => {
+  try {
+    const {
+      name,
+      year,
+      department,
+      section,
+      departmentId,
+      category,
+      email,
+      username,
+      rollNo,
+      registerNo,
+      mobileNo,
+      batch,
+    } = req.body;
 
-      const studDepartment = req.params.department;
-      const studYear = req.params.year;
-      const studSection = req.params.section;
-      const studbatch = req.params.batch;
-      const newID = studYear + studDepartment + studbatch + studSection;
-      const DepartmentModel = Model[newID];
-      // Use the create method to directly create and save the new student
-      console.log(batch);
-      await DepartmentModel.create({
-        name,
-        year,
-        department,
-        section,
-        batch,
-        departmentId,
-        rollNo,
-        registerNo,
-        mobileNo,
-        category,
-        email,
-        username,
-      });
+    const studDepartment = req.params.department;
+    const studYear = req.params.year;
+    const studSection = req.params.section;
+    const studbatch = req.params.batch;
+    const newID = studYear + studDepartment + studbatch + studSection;
+    const DepartmentModel = Model[newID];
+    // Use the create method to directly create and save the new student
+    console.log(batch);
+    await DepartmentModel.create({
+      name,
+      year,
+      department,
+      section,
+      batch,
+      departmentId,
+      rollNo,
+      registerNo,
+      mobileNo,
+      category,
+      email,
+      username,
+    });
 
-      res.status(201).json({ message: 'Student added successfully!' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+    res.status(201).json({ message: "Student added successfully!" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-);
+});
 
 //2nd success -- Searching in Remove Student Edit Page
 app.get(
-  '/findstudent/:year/:department/:section/:batch/:registerno',
+  "/findstudent/:year/:department/:section/:batch/:registerno",
   async (req, res) => {
     const regNo = req.params.registerno;
     const dep = req.params.department;
@@ -287,16 +284,16 @@ app.get(
     const sectionToLoop = await DepartmentModel.find();
     // console.log(sectionToLoop);
     const student = sectionToLoop.filter((item) => item.registerNo == regNo);
-    console.log('student: ' + student);
+    console.log("student: " + student);
     // const student = await Student.findOne({ registerNo: registerNumber });
-    console.log('akbsgkjlasgjiabsjg ', student[0]);
+    console.log("akbsgkjlasgjiabsjg ", student[0]);
     res.status(200).json({ found: student[0] });
   }
 );
 
 //2nd success -- Deletion in Edit Page
 app.delete(
-  '/deletestudent/:year/:department/:section/:batch/:studentid/:email',
+  "/deletestudent/:year/:department/:section/:batch/:studentid/:email",
   async (req, res) => {
     try {
       const studentIdToDelete = req.params.studentid;
@@ -324,32 +321,29 @@ app.delete(
         );
         res.status(200).json({ message: `Student deleted successfully.` });
       } else {
-        console.log('Student not found or not deleted.');
-        res.status(404).json({ message: 'Student not found or not deleted.' });
+        console.log("Student not found or not deleted.");
+        res.status(404).json({ message: "Student not found or not deleted." });
       }
     } catch (error) {
-      console.error('Error deleting student:', error);
-      res.status(500).json({ message: 'Internal server error.' });
+      console.error("Error deleting student:", error);
+      res.status(500).json({ message: "Internal server error." });
     }
   }
 );
 
 //2nd success -- Retriving class details
-app.get(
-  '/:year/:department/:section/:batch/classdetails',
-  async (req, res) => {
-    const dep = req.params.department;
-    const year = req.params.year;
-    const section = req.params.section;
-    const batch = req.params.batch;
-    const newID = year + dep + batch + section;
-    const DepartmentModel = Model[newID];
-    console.log('deparmentmodel ', dep, year, section, newID, DepartmentModel);
+app.get("/:year/:department/:section/:batch/classdetails", async (req, res) => {
+  const dep = req.params.department;
+  const year = req.params.year;
+  const section = req.params.section;
+  const batch = req.params.batch;
+  const newID = year + dep + batch + section;
+  const DepartmentModel = Model[newID];
+  console.log("deparmentmodel ", dep, year, section, newID, DepartmentModel);
 
-    const sectionToLoop = await DepartmentModel.find();
-    res.send(sectionToLoop);
-  }
-);
+  const sectionToLoop = await DepartmentModel.find();
+  res.send(sectionToLoop);
+});
 
 // app.get('/:year/:department/departmentdetails', async (req, res) => {
 //   const dep = req.params.department;
@@ -384,7 +378,7 @@ app.get(
 // });
 
 //2nd success -- Getting All details of a Department in Dashboard Page of HOD --
-app.get('/:year/:department/:batch/departmentdetails', async (req, res) => {
+app.get("/:year/:department/:batch/departmentdetails", async (req, res) => {
   const dep = req.params.department;
   const year = req.params.year;
   const batch = req.params.batch;
@@ -419,7 +413,7 @@ app.get('/:year/:department/:batch/departmentdetails', async (req, res) => {
 
 //2nd -- Student Dashboard Page --
 app.get(
-  '/:year/:department/:section/:batch/:email/studentdetails',
+  "/:year/:department/:section/:batch/:email/studentdetails",
   async (req, res) => {
     const email = req.params.email;
     const dep = req.params.department;
@@ -487,61 +481,58 @@ app.get(
 app.use(express.json());
 
 //2nd success --Leave Form - Student Page --
-app.post(
-  '/:year/:department/:section/submitleaveform',
-  async (req, res) => {
-    try {
-      const {
-        year,
-        department,
-        section,
-        batch,
-        email,
-        name,
-        regNo,
-        imgUrl,
-        reason,
-        appliedDates,
-      } = req.body;
-      console.log('imgurl ' + imgUrl);
-      let dep = await LeaveForm.findOne({ department });
-      // let dep = await LeaveForm.find();
+app.post("/:year/:department/:section/submitleaveform", async (req, res) => {
+  try {
+    const {
+      year,
+      department,
+      section,
+      batch,
+      email,
+      name,
+      regNo,
+      imgUrl,
+      reason,
+      appliedDates,
+    } = req.body;
+    console.log("imgurl " + imgUrl);
+    let dep = await LeaveForm.findOne({ department });
+    // let dep = await LeaveForm.find();
 
-      if (!dep) {
-        dep = await LeaveForm.create({ department });
-      }
-      // const leaveforms = dep.filter((item) => item.email === email);
-      // console.log('leaveforms ', leaveforms);
-      console.log('asgagafgdsgsdfg ', dep);
-
-      const fileData = {
-        year,
-        department,
-        section,
-        batch,
-        email,
-        regNo,
-        name,
-        imgUrl,
-        appliedDates,
-        reason,
-      };
-
-      dep.students.push(fileData);
-
-      await dep.save();
-
-      res.status(201).json({ message: 'Student added successfully!' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+    if (!dep) {
+      dep = await LeaveForm.create({ department });
     }
+    // const leaveforms = dep.filter((item) => item.email === email);
+    // console.log('leaveforms ', leaveforms);
+    console.log("asgagafgdsgsdfg ", dep);
+
+    const fileData = {
+      year,
+      department,
+      section,
+      batch,
+      email,
+      regNo,
+      name,
+      imgUrl,
+      appliedDates,
+      reason,
+    };
+
+    dep.students.push(fileData);
+
+    await dep.save();
+
+    res.status(201).json({ message: "Student added successfully!" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-);
+});
 
 app.use(bodyParser.json());
 
 app.get(
-  '/mentor/report/date/:year/:department/:section/:batch/:formattedDate',
+  "/mentor/report/date/:year/:department/:section/:batch/:formattedDate",
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -549,34 +540,34 @@ app.get(
     const batch = req.params.batch;
     const newID = year + dep + batch + section;
     const DepartmentModel = Model[newID];
-    console.log('deparmentmodel ', dep, year, section, newID, DepartmentModel);
+    console.log("deparmentmodel ", dep, year, section, newID, DepartmentModel);
 
     const sectionToLoop = await DepartmentModel.find();
     const Date = req.params.formattedDate;
-    console.log('Received date on server:', Date);
-    console.log('sectionToLoop ', sectionToLoop);
+    console.log("Received date on server:", Date);
+    console.log("sectionToLoop ", sectionToLoop);
     const simplifiedData = sectionToLoop.map((item) => ({
       name: item.name,
       department: item.department,
       year: item.year,
       section: item.section,
       rollNo: item.rollNo,
-      presentStatus: item.presentDates.includes(Date) ? 'yes' : 'no',
+      presentStatus: item.presentDates.includes(Date) ? "yes" : "no",
     }));
-    console.log('simplifiedData ', simplifiedData);
+    console.log("simplifiedData ", simplifiedData);
     res.send(simplifiedData);
   }
 );
 
 //2nd success -- Leave Form- Mentor
-app.get('/files/:year/:department/:section', async (req, res) => {
+app.get("/files/:year/:department/:section", async (req, res) => {
   try {
     const { year, department, section } = req.params;
 
     const dep = await LeaveForm.findOne({ department });
 
     if (!dep) {
-      return res.status(404).json({ message: 'Department not found' });
+      return res.status(404).json({ message: "Department not found" });
     }
 
     const files = dep.students
@@ -602,25 +593,25 @@ app.get('/files/:year/:department/:section', async (req, res) => {
 
     res.json({ files });
   } catch (error) {
-    console.error('Error fetching files:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error fetching files:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 //2nd success -- Leave Form- HOD
-app.get('/hod/files/:year/:department/:section', async (req, res) => {
+app.get("/hod/files/:year/:department/:section", async (req, res) => {
   try {
     const { year, department, section } = req.params;
 
     const dep = await LeaveForm.findOne({ department });
 
     if (!dep) {
-      return res.status(404).json({ message: 'Department not found' });
+      return res.status(404).json({ message: "Department not found" });
     }
 
     const files = dep.students
       .filter(
-        (student) => student.year === year && student.status === 'verified'
+        (student) => student.year === year && student.status === "verified"
       )
       .map((student) => ({
         _id: student._id, // Use the actual identifier for your file
@@ -637,47 +628,47 @@ app.get('/hod/files/:year/:department/:section', async (req, res) => {
         dates: student.appliedDates,
       }));
 
-    console.log('this file is ', files);
+    console.log("this file is ", files);
 
     res.json({ files });
   } catch (error) {
-    console.error('Error fetching files:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error fetching files:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 //2nd success -- Verified in Mentor Side
-app.post('/verified', async (req, res) => {
+app.post("/verified", async (req, res) => {
   try {
     let { id, department } = req.body;
-    console.log(id + ' ' + department);
+    console.log(id + " " + department);
     const dep = await LeaveForm.findOne({ department });
 
     if (!dep) {
-      return res.status(404).json({ message: 'Department not found' });
+      return res.status(404).json({ message: "Department not found" });
     }
 
     const student = dep.students.find((student) => student._id == id);
     console.log(student);
-    student.status = 'verified';
+    student.status = "verified";
     await dep.save();
 
-    res.status(200).json({ message: 'Verification successful' });
+    res.status(200).json({ message: "Verification successful" });
   } catch (error) {
-    console.error('Error in /verified:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error in /verified:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
 //2nd success -- Accept in HOD Side
-app.post('/accepted', async (req, res) => {
+app.post("/accepted", async (req, res) => {
   try {
     let { id, year, department, section, batch, regNo, dates } = req.body;
-    console.log(id + ' ' + department);
+    console.log(id + " " + department);
     const dep = await LeaveForm.findOne({ department });
 
     if (!dep) {
-      return res.status(404).json({ message: 'Department not found' });
+      return res.status(404).json({ message: "Department not found" });
     }
 
     // const student = dep.students.find((student) => student._id == id);
@@ -686,7 +677,7 @@ app.post('/accepted', async (req, res) => {
     // await dep.save();
     const studentIndex = dep.students.findIndex((student) => student._id == id);
     if (studentIndex === -1) {
-      return res.status(404).json({ message: 'Student not found' });
+      return res.status(404).json({ message: "Student not found" });
     }
 
     // Remove the student from the 'students' array
@@ -700,13 +691,13 @@ app.post('/accepted', async (req, res) => {
     const DepartmentModel = Model[newID];
 
     const sectionToLoop = await DepartmentModel.find();
-    console.log('kjasdhfkjasbd ,', sectionToLoop);
+    console.log("kjasdhfkjasbd ,", sectionToLoop);
     const stud = sectionToLoop.filter(
       (student) => student.registerNo === regNo
     );
     // const newDate = new Date().toISOString().slice(0, 10);
     // stud[0].acceptedDates.push(dates);
-    console.log('hi ', sectionToLoop);
+    console.log("hi ", sectionToLoop);
     dates.forEach((date) => {
       stud[0].acceptedDates.push(date);
     });
@@ -719,20 +710,20 @@ app.post('/accepted', async (req, res) => {
     //to change
     await stud[0].save();
 
-    console.log('stud ', stud[0]);
+    console.log("stud ", stud[0]);
 
-    res.status(200).json({ message: 'Accepted successfuly' });
+    res.status(200).json({ message: "Accepted successfuly" });
   } catch (error) {
-    console.error('Error in /accepted:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error in /accepted:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
 // 2nd success -- Rejected in HOD And Mentor Side
-app.post('/rejected', async (req, res) => {
+app.post("/rejected", async (req, res) => {
   try {
     let { id, department } = req.body;
-    console.log(id + ' ' + department);
+    console.log(id + " " + department);
 
     const result = await LeaveForm.findOneAndUpdate(
       { department },
@@ -742,19 +733,19 @@ app.post('/rejected', async (req, res) => {
 
     if (!result) {
       // If result is null, the student was not found
-      return res.status(404).json({ message: 'Student not found' });
+      return res.status(404).json({ message: "Student not found" });
     }
 
-    res.status(200).json({ message: 'Rejected Successfully' });
+    res.status(200).json({ message: "Rejected Successfully" });
   } catch (error) {
-    console.error('Error in /rejected:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error in /rejected:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
 //2nd success --Leave Form Student Page --
 app.get(
-  '/:year/:department/:section/:batch/:email/absentdates',
+  "/:year/:department/:section/:batch/:email/absentdates",
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -773,7 +764,7 @@ app.get(
 );
 
 app.get(
-  '/:year/:department/:section/:batch/:email/statuschecker',
+  "/:year/:department/:section/:batch/:email/statuschecker",
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -785,7 +776,7 @@ app.get(
     const sectionToLoop = await DepartmentModel.find();
     const email = req.params.email;
     const student = sectionToLoop.filter((student) => student.email === email);
-    console.log('hi', student);
+    console.log("hi", student);
     try {
       const datesStatusDictionary = {};
 
@@ -794,7 +785,7 @@ app.get(
       // console.log('jasdbfhlabskf', unAppliedDates);
       const acceptedDates = student[0].acceptedDates;
       acceptedDates.forEach((date) => {
-        datesStatusDictionary[date] = 'Accepted';
+        datesStatusDictionary[date] = "Accepted";
       });
 
       const department = await LeaveForm.findOne({ department: dep });
@@ -811,12 +802,12 @@ app.get(
         if (item.status) {
           datesStatusDictionary[item.appliedDates] = item.status;
         } else {
-          datesStatusDictionary[item.appliedDates] = 'Applied';
+          datesStatusDictionary[item.appliedDates] = "Applied";
         }
       });
       unAppliedDates.forEach((item) => {
         if (!(item in datesStatusDictionary)) {
-          datesStatusDictionary[item] = 'Not Applied';
+          datesStatusDictionary[item] = "Not Applied";
         }
       });
       console.log(absentDates, unAppliedDates, acceptedDates, allAppliedDates);
@@ -831,36 +822,36 @@ app.get(
 );
 
 app.post(
-  '/:year/:department/:section/:batch/:email/editprofile',
+  "/:year/:department/:section/:batch/:email/editprofile",
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
     const section = req.params.section;
     const batch = req.params.batch;
     const email = req.params.email;
-    const { studentData } = req.body;
-    console.log(studentData);
+    const { mentorData } = req.body;
+    console.log(mentorData);
     try {
       const user = await User.findOne({ email: email });
       if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: "User not found" });
       }
 
-      user.name = studentData.name;
-      user.year = studentData.year;
-      user.department = studentData.department;
-      user.section = studentData.section;
-      user.batch = studentData.batch;
-      user.email = studentData.email;
+      user.name = mentorData.name;
+      user.year = mentorData.year;
+      user.department = mentorData.department;
+      user.section = mentorData.section;
+      user.batch = mentorData.batch;
+      user.email = mentorData.email;
       console.log(user);
       user.save();
-      console.log('User profile updated successfully');
+      console.log("User profile updated successfully");
       return res
         .status(200)
-        .json({ message: 'User profile updated successfully' });
+        .json({ message: "User profile updated successfully" });
     } catch (error) {
-      console.error('Error updating user profile:', error);
-      return res.status(500).json({ error: 'Internal server error' });
+      console.error("Error updating user profile:", error);
+      return res.status(500).json({ error: "Internal server error" });
     }
   }
 );
@@ -889,7 +880,7 @@ app.post(
 // });
 
 app.listen(4001, () => {
-  console.log('Server running on 4001');
+  console.log("Server running on 4001");
 });
 
 //FAILURE : BUT MAY BE USED LATER
