@@ -104,6 +104,37 @@ const Model = {
   IVECE2020B,
   IVECE2020C,
 };
+
+const departments = [
+  'ECEA',
+  'ECEB',
+  'ECEC',
+  'MECHA',
+  'MECHB',
+  'MECHC',
+  'EEEA',
+  'EEEB',
+  'EEEC',
+  'ITA',
+  'ITB',
+  'ITC',
+  'CSEA',
+  'CSEB',
+  'CSEC',
+  'ADSA',
+  'ADSB',
+  'ADSC',
+  'AMLA',
+  'AMLB',
+  'AMLC',
+  'CHEMA',
+  'CHEMB',
+  'CHEMC',
+  'BIOA',
+  'BIOB',
+  'BIOC',
+];
+
 //2nd success -- update attendance
 app.post(
   '/updateAttendance/:year/:department/:section/:batch',
@@ -122,7 +153,14 @@ app.post(
       const submittedDepartment = await submittedDates.findOne({
         departmentId: dep + section,
       });
-
+      if(!submittedDepartment){
+          departments.map((item) => {
+    submittedDates.create({
+      departmentId: item,
+    });
+  });
+      }
+      
       if (!submittedDepartment.dates.includes(newDate)) {
         for (const student of sectionToLoop) {
           const isPresent = presentStudents.some((presentStudent) => {
