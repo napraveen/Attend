@@ -34,5 +34,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - '27019:27017'
     volumes:
       - ./mongodb/:/docker-entrypoint-initdb.d/

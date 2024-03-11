@@ -1,0 +1,15 @@
+docker-compose logs frontend
+docker-compose logs backend
+
+For Real-Time:
+
+    docker-compose logs -f backend
+    docker-compose logs -f frontend
+
+
+List Services: 
+    docker-compose ps
+
+Always:
+    docker compose up
+
