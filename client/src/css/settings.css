@@ -3,7 +3,7 @@
 }
 
 .settings-edit-profile input {
-  width: 250px;
+  width: 25vw;
   height: 50px;
   margin-right: 4vw;
   border: 2px solid black;
@@ -30,12 +30,18 @@
 }
 .settings-edit-profile form {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  margin-left: 100px;
 }
 .settings-mentor-div {
-  margin-top: 15vh;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
 }
 .settings-edit-profile button {
   margin-top: 5vh;
