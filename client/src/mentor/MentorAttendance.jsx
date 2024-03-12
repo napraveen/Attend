@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const MentorAttendance = ({
   department,
@@ -35,7 +35,6 @@ const MentorAttendance = ({
           <th>Section</th>
           <th>Roll No</th>
           <th>Present?</th>
-          <th>On Duty</th>
         </tr>
 
         {department.map((item) => (
@@ -51,9 +50,6 @@ const MentorAttendance = ({
                 onChange={() => handleCheckboxChange(item._id)}
                 checked={studentAttendance[item._id] || false}
               />
-            </td>
-            <td>
-              <input type="checkbox" />
             </td>
           </tr>
         ))}
