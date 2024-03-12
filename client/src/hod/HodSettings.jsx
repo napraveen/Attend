@@ -48,6 +48,7 @@ const HodSettings = () => {
     <>
       <div className="settings-edit-profile">
         <form onSubmit={handleEditProfile}>
+          <h1>My Profile</h1>
           <div className="settings-mentor-div">
             {" "}
             <h3>Name: </h3>{" "}

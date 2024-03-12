@@ -76,77 +76,82 @@ const LFHRight = () => {
       {" "}
       <div className="lfh-file-list">
         <h2>Uploaded Files:</h2>
-        <ul>
-          <table>
-            <tr>
-              <th>Name</th>
-              <th>Register No</th>
-              <th>Link</th>
-              <th>Reason</th>
-              <th>Dates</th>
-              <th>Verify</th>
-              <th>Reject</th>
-            </tr>
-            {files.map(
-              (file) => (
-                // file.status === 'verified' ? (
-                <tbody key={file._id}>
-                  <td> {file.name}</td>
-                  <td> {file.regNo}</td>
-                  <td>
-                    {" "}
-                    <a
-                      href={file.imgUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {file.imgUrl ? "Click Here" : ""}
-                    </a>
-                  </td>
-                  <td>{file.reason}</td>
+        {files.length === 0 ? (
+          <p style={{ marginLeft: "70px", color: "red" }}>No files to Show</p>
+        ) : (
+          <ul>
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Register No</th>
+                <th>Link</th>
+                <th>Reason</th>
+                <th>Dates</th>
+                <th>Verify</th>
+                <th>Reject</th>
+              </tr>
 
-                  <td>
-                    {file.dates &&
-                      file.dates.map((date, index) => (
-                        <div key={index}>{date}</div>
-                      ))}
-                  </td>
-
-                  {file.status !== "Accepted" ? (
+              {files.map(
+                (file) => (
+                  // file.status === 'verified' ? (
+                  <tbody key={file._id}>
+                    <td> {file.name}</td>
+                    <td> {file.regNo}</td>
                     <td>
                       {" "}
-                      <button
-                        type="submit"
-                        className="lfm-accept-button"
-                        onClick={() => handleAccepted(file)}
+                      <a
+                        href={file.imgUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        Accepted
-                      </button>
+                        {file.imgUrl ? "Click Here" : ""}
+                      </a>
                     </td>
-                  ) : (
-                    <td>Accepted</td>
-                  )}
+                    <td>{file.reason}</td>
 
-                  {file.status !== "rejected" ? (
                     <td>
-                      {" "}
-                      <button
-                        type="submit"
-                        className="lfm-reject-button"
-                        onClick={() => handleRejected(file)}
-                      >
-                        Reject
-                      </button>
+                      {file.dates &&
+                        file.dates.map((date, index) => (
+                          <div key={index}>{date}</div>
+                        ))}
                     </td>
-                  ) : (
-                    <td>rejected</td>
-                  )}
-                </tbody>
-              )
-              // ) : null
-            )}
-          </table>
-        </ul>
+
+                    {file.status !== "Accepted" ? (
+                      <td>
+                        {" "}
+                        <button
+                          type="submit"
+                          className="lfm-accept-button"
+                          onClick={() => handleAccepted(file)}
+                        >
+                          Accepted
+                        </button>
+                      </td>
+                    ) : (
+                      <td>Accepted</td>
+                    )}
+
+                    {file.status !== "rejected" ? (
+                      <td>
+                        {" "}
+                        <button
+                          type="submit"
+                          className="lfm-reject-button"
+                          onClick={() => handleRejected(file)}
+                        >
+                          Reject
+                        </button>
+                      </td>
+                    ) : (
+                      <td>rejected</td>
+                    )}
+                  </tbody>
+                )
+                // ) : null
+              )}
+            </table>
+          </ul>
+        )}
       </div>
     </div>
   );
