@@ -1,4 +1,5 @@
-.lfm-container {
+.lfm-container,
+.lfh-container {
   margin-left: 20%;
 }
 .lfm-accept-button,
@@ -20,4 +21,14 @@
 
 .lfm-reject-button:hover {
   background-color: rgba(243, 77, 77, 0.885);
+}
+
+.lfh-file-list {
+  padding-top: 160px;
+  padding-left: 0px;
+}
+
+.lfh-file-list h2 {
+  margin-bottom: 50px;
+  margin-left: 70px;
 }

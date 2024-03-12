@@ -122,7 +122,7 @@
 }
 
 /* Style for the checkbox itself */
-.lfr-leavedate input[type='checkbox'] {
+.lfr-leavedate input[type="checkbox"] {
   margin-top: 20px;
   margin-right: 10px; /* Adjust spacing between checkbox and label */
 }

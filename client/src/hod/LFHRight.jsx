@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 //lfh => Leave Form Hod
-import { useEffect } from 'react';
-import GetUserDetails from '../functions/GetUserDetails';
-import '../css/leaveformmentor.css';
-import axios from 'axios';
+import { useEffect } from "react";
+import GetUserDetails from "../functions/GetUserDetails";
+import "../css/leaveformmentor.css";
+import axios from "axios";
 
 const LFHRight = () => {
   const { userDetails } = GetUserDetails();
@@ -19,9 +19,9 @@ const LFHRight = () => {
         // console.log('files' + JSON.stringify(response));
 
         setFiles(response.data.files);
-        console.log('res' + JSON.stringify(response.data.files));
+        console.log("res" + JSON.stringify(response.data.files));
       } catch (error) {
-        console.error('Error fetching files:', error);
+        console.error("Error fetching files:", error);
       }
     };
 
@@ -43,14 +43,14 @@ const LFHRight = () => {
       `http://localhost:3050/api/accepted`,
       studentdata
     );
-    console.log('hiiiiiiiiii ', res);
+    console.log("hiiiiiiiiii ", res);
     if (res.status === 200) {
-      console.log('Data successfully sent:', res);
+      console.log("Data successfully sent:", res);
 
       // Update the state by removing the accepted file
       setFiles((prevFiles) => prevFiles.filter((f) => f._id !== file._id));
     } else {
-      console.error('Unexpected response status:', res.status);
+      console.error("Unexpected response status:", res.status);
     }
   };
 
@@ -65,16 +65,16 @@ const LFHRight = () => {
     );
     console.log(res);
     if (res.status === 200) {
-      console.log('Data successfully sent:', res);
+      console.log("Data successfully sent:", res);
       setFiles((prevFiles) => prevFiles.filter((f) => f._id !== file._id));
     } else {
-      console.error('Unexpected response status:', res.status);
+      console.error("Unexpected response status:", res.status);
     }
   };
   return (
-    <div className="lfm-container">
-      {' '}
-      <div className="lfm-file-list">
+    <div className="lfh-container">
+      {" "}
+      <div className="lfh-file-list">
         <h2>Uploaded Files:</h2>
         <ul>
           <table>
@@ -94,13 +94,13 @@ const LFHRight = () => {
                   <td> {file.name}</td>
                   <td> {file.regNo}</td>
                   <td>
-                    {' '}
+                    {" "}
                     <a
                       href={file.imgUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {file.imgUrl ? 'Click Here' : ''}
+                      {file.imgUrl ? "Click Here" : ""}
                     </a>
                   </td>
                   <td>{file.reason}</td>
@@ -112,9 +112,9 @@ const LFHRight = () => {
                       ))}
                   </td>
 
-                  {file.status !== 'Accepted' ? (
+                  {file.status !== "Accepted" ? (
                     <td>
-                      {' '}
+                      {" "}
                       <button
                         type="submit"
                         className="lfm-accept-button"
@@ -127,9 +127,9 @@ const LFHRight = () => {
                     <td>Accepted</td>
                   )}
 
-                  {file.status !== 'rejected' ? (
+                  {file.status !== "rejected" ? (
                     <td>
-                      {' '}
+                      {" "}
                       <button
                         type="submit"
                         className="lfm-reject-button"
