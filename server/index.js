@@ -40,7 +40,7 @@ app.use(express.json());
 // app.use(bodyParser.urlencoded({extended:true}))
 // app.use(bodyParser.json)
 
-// const saveStudentsToDatabase = require('./saveStudentsToDatabase');
+// const saveStudentsToDatabase = require("./saveStudentsToDatabase");
 // saveStudentsToDatabase();
 
 app.use(
@@ -63,9 +63,9 @@ app.get("/", (req, res) => {
 });
 
 //2nd success -- To get the userName
-app.get("/user/:username", async (req, res) => {
+app.get("/user/:email", async (req, res) => {
   try {
-    const user = await User.findOne({ username: req.params.username });
+    const user = await User.findOne({ email: req.params.email });
     res.json(user);
     console.log(user);
   } catch (error) {
@@ -246,7 +246,6 @@ app.post("/:year/:department/:section/:batch/addstudents", async (req, res) => {
     const studbatch = req.params.batch;
     const newID = studYear + studDepartment + studbatch + studSection;
     const DepartmentModel = Model[newID];
-    // Use the create method to directly create and save the new student
     console.log(batch);
     await DepartmentModel.create({
       name,
@@ -262,6 +261,10 @@ app.post("/:year/:department/:section/:batch/addstudents", async (req, res) => {
       email,
       username,
     });
+
+    const user = await User.findOne({ email: email });
+    user.name = name;
+    user.save();
 
     res.status(201).json({ message: "Student added successfully!" });
   } catch (err) {
@@ -892,6 +895,41 @@ app.post(
       user.section = mentorData.section;
       user.batch = mentorData.batch;
       user.email = mentorData.email;
+      console.log(user);
+      user.save();
+      console.log("User profile updated successfully");
+      return res
+        .status(200)
+        .json({ message: "User profile updated successfully" });
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+app.post(
+  "/:year/:department/:section/:batch/:email/student/editprofile",
+  async (req, res) => {
+    const dep = req.params.department;
+    const year = req.params.year;
+    const section = req.params.section;
+    const batch = req.params.batch;
+    const email = req.params.email;
+    const { studentData } = req.body;
+    console.log(studentData);
+    try {
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      user.name = studentData.name;
+      user.year = studentData.year;
+      user.department = studentData.department;
+      user.section = studentData.section;
+      user.batch = studentData.batch;
+      user.email = studentData.email;
       console.log(user);
       user.save();
       console.log("User profile updated successfully");

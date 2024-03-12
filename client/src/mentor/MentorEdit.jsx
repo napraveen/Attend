@@ -85,13 +85,7 @@ const MentorEdit = () => {
     e.preventDefault();
     console.log("huuuhuhuu ", studentData);
     try {
-      await axios.post(
-        `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/addstudents`,
-        studentData
-      );
       const { username, password, email } = studentData;
-
-      // Send username, password, and email in the same structure as in Signup component
       const userData = {
         email,
         password,
@@ -101,6 +95,11 @@ const MentorEdit = () => {
       await axios.post("http://localhost:3050/api/auth/signup", userData, {
         withCredentials: true,
       });
+
+      await axios.post(
+        `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/addstudents`,
+        studentData
+      );
       // const { success, message } = data;
       setStudentData({
         name: "",

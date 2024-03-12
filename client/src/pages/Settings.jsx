@@ -6,6 +6,7 @@ import "../css/settings.css";
 import axios from "axios";
 import MentorSettings from "../mentor/MentorSettings";
 import HodSettings from "../hod/HodSettings";
+import StudentSettings from "../student/StudentSettings";
 const Settings = () => {
   const { userDetails } = GetUserDetails();
 
@@ -80,6 +81,8 @@ const Settings = () => {
             <MentorSettings />
           ) : userDetails.category === "hod" ? (
             <HodSettings />
+          ) : userDetails.category === "student" ? (
+            <StudentSettings />
           ) : (
             ""
           )}

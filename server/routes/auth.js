@@ -27,8 +27,6 @@ router.post(
 
     //validate if user doesn't already exist
 
-    // let existinguser = await User.findOne({ email: email });
-
     // if (existinguser) {
     //   return res.status(400).json({
     //     errors: [
@@ -38,20 +36,17 @@ router.post(
     //     ],
     //   });
     // }
-    let existingUser = await User.findOne({
-      $or: [{ email: email }, { username: username }],
-    });
 
-    if (existingUser) {
-      let errors = [];
-      if (existingUser.email === email) {
-        errors.push({ msg: "Email already exists" });
-      }
-      if (existingUser.username === username) {
-        errors.push({ msg: "Username already exists" });
-      }
+    let existinguser = await User.findOne({ email: email });
 
-      return res.status(400).json({ errors: errors });
+    if (existinguser) {
+      return res.status(400).json({
+        errors: [
+          {
+            msg: "This user already exists",
+          },
+        ],
+      });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -196,7 +191,12 @@ router.get("/check-auth", (req, res) => {
     const user = await User.findOne({ email: decoded.email });
     if (user) {
       const username = user.username;
-      return res.json({ authenticated: true, username: username });
+      const email = user.email;
+      return res.json({
+        authenticated: true,
+        username: username,
+        email: email,
+      });
     } else {
       return res.json({ authenticated: false, message: "User not found" });
     }
