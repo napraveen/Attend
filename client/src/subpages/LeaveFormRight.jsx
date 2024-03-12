@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import '../css/leaveform.css';
-import { useEffect } from 'react';
-import GetUserDetails from '../functions/GetUserDetails';
-import Left from '../subpages/Left';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import "../css/leaveform.css";
+import { useEffect } from "react";
+import GetUserDetails from "../functions/GetUserDetails";
+import Left from "../subpages/Left";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 //firebase
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/storage';
+import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
 
 const LeaveFormRight = () => {
   const { userDetails } = GetUserDetails();
@@ -24,7 +24,7 @@ const LeaveFormRight = () => {
   const [absentDates, setAbsentDates] = useState([]);
 
   const studentFormClass = {
-    display: isAddStudentClassClicked ? 'none' : 'block',
+    display: isAddStudentClassClicked ? "none" : "block",
   };
 
   const [file, setFile] = useState(null);
@@ -34,16 +34,16 @@ const LeaveFormRight = () => {
   };
 
   const [studentData, setStudentData] = useState({
-    year: '',
-    department: '',
-    section: '',
-    batch: '',
-    email: '',
-    name: '',
-    regNo: '',
-    imgUrl: '',
-    reason: 'medicalleave',
-    selectedDates: '',
+    year: "",
+    department: "",
+    section: "",
+    batch: "",
+    email: "",
+    name: "",
+    regNo: "",
+    imgUrl: "",
+    reason: "medicalleave",
+    selectedDates: "",
   });
 
   const [files, setFiles] = useState([]);
@@ -51,15 +51,15 @@ const LeaveFormRight = () => {
   useEffect(() => {
     // Update studentData when userDetails change
     setStudentData({
-      year: userDetails?.year ?? '',
-      department: userDetails?.department ?? '',
-      section: userDetails?.section ?? '',
-      batch: userDetails?.batch ?? '',
-      email: userDetails?.email ?? '',
-      name: '',
-      regNo: '',
-      reason: 'medicalleave',
-      selectedDates: '',
+      year: userDetails?.year ?? "",
+      department: userDetails?.department ?? "",
+      section: userDetails?.section ?? "",
+      batch: userDetails?.batch ?? "",
+      email: userDetails?.email ?? "",
+      name: "",
+      regNo: "",
+      reason: "medicalleave",
+      selectedDates: "",
     });
 
     // const fetchFiles = async () => {
@@ -85,24 +85,24 @@ const LeaveFormRight = () => {
         );
 
         setAbsentDates(response.data.unAppliedDates);
-        console.log('hi ' + JSON.stringify(response.data.unAppliedDates));
+        console.log("hi " + JSON.stringify(response.data.unAppliedDates));
       } catch (error) {
-        console.error('Error fetching absent dates:', error);
+        console.error("Error fetching absent dates:", error);
       }
     };
     if (userDetails) {
       fetchAbsentDates();
     }
   }, [userDetails]);
-  console.log('Filesss:', files);
+  console.log("Filesss:", files);
   const handleSubmitAddStudent = async (e) => {
     try {
       e.preventDefault();
       //firebase
-      const currentISTTime = new Date().toLocaleString('en-IN', {
-        timeZone: 'Asia/Kolkata',
+      const currentISTTime = new Date().toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata",
       });
-      const formattedISTTime = currentISTTime.replace(/[/,:\sAPMapm]/g, '');
+      const formattedISTTime = currentISTTime.replace(/[/,:\sAPMapm]/g, "");
 
       // const fileName = `${formattedISTTime}`;
       // // const fileName = `${formattedISTTime}-{userDetails.regNo}`
@@ -124,7 +124,7 @@ const LeaveFormRight = () => {
           downloadURL = await fileRef.getDownloadURL();
         } catch (error) {
           console.error(
-            'Error uploading or getting download URL from Firebase:',
+            "Error uploading or getting download URL from Firebase:",
             error
           );
         }
@@ -140,7 +140,7 @@ const LeaveFormRight = () => {
         appliedDates: selectedDates,
       };
 
-      console.log('updatedstudentdata ' + JSON.stringify(updatedStudentData));
+      console.log("updatedstudentdata " + JSON.stringify(updatedStudentData));
 
       await axios.post(
         `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/submitleaveform`,
@@ -148,19 +148,19 @@ const LeaveFormRight = () => {
       );
       // const { success, message } = data;
       setStudentData({
-        year: '',
-        department: '',
-        section: '',
-        batch: '',
-        email: '',
-        imgUrl: '',
-        name: '',
-        regNo: '',
-        reason: '',
+        year: "",
+        department: "",
+        section: "",
+        batch: "",
+        email: "",
+        imgUrl: "",
+        name: "",
+        regNo: "",
+        reason: "",
       });
       setFile(null);
     } catch (err) {
-      console.error('Error adding student:', err);
+      console.error("Error adding student:", err);
     }
   };
 
@@ -203,51 +203,51 @@ const LeaveFormRight = () => {
                   iconText5=""
                   menu1="Dashboard"
                   menu2={
-                    userDetails.category === 'student'
-                      ? 'Leave Form'
-                      : userDetails.category === 'hod'
-                      ? 'Leaveform'
-                      : 'Attendance'
+                    userDetails.category === "student"
+                      ? "Leave Form"
+                      : userDetails.category === "hod"
+                      ? "Leaveform"
+                      : "Attendance"
                   }
                   menu3="Edit"
                   menu4="Calendar"
                   menu5="Settings"
-                  menu6={userDetails.category === 'mentor' ? 'Leave Form' : ''}
+                  menu6={userDetails.category === "mentor" ? "Leave Form" : ""}
                   link1="/"
                   link2={
-                    userDetails.category === 'student'
-                      ? '/leaveform'
-                      : userDetails.category === 'hod'
-                      ? '/leaveform-hod'
-                      : '/attendance'
+                    userDetails.category === "student"
+                      ? "/leaveform"
+                      : userDetails.category === "hod"
+                      ? "/leaveform-hod"
+                      : "/attendance"
                   }
                   link3={
-                    userDetails.category === 'student'
-                      ? '/edit'
-                      : userDetails.category === 'hod'
-                      ? '/edit'
-                      : '/edit'
+                    userDetails.category === "student"
+                      ? "/edit"
+                      : userDetails.category === "hod"
+                      ? "/edit"
+                      : "/edit"
                   }
                   link4={
-                    userDetails.category === 'student'
-                      ? '/student-calendar'
-                      : userDetails.category === 'hod'
-                      ? '/hod-calendar'
-                      : '/mentor-calendar'
+                    userDetails.category === "student"
+                      ? "/student-calendar"
+                      : userDetails.category === "hod"
+                      ? "/hod-calendar"
+                      : "/mentor-calendar"
                   }
                   link5={
-                    userDetails.category === 'student'
-                      ? '/settings'
-                      : userDetails.category === 'hod'
-                      ? '/settings'
-                      : '/settings'
+                    userDetails.category === "student"
+                      ? "/settings"
+                      : userDetails.category === "hod"
+                      ? "/settings"
+                      : "/settings"
                   }
                   link6={
-                    userDetails.category === 'student'
-                      ? '/student-leaveform'
-                      : userDetails.category === 'hod'
-                      ? '/hod-leaveform'
-                      : '/leaveform-mentor'
+                    userDetails.category === "student"
+                      ? "/student-leaveform"
+                      : userDetails.category === "hod"
+                      ? "/hod-leaveform"
+                      : "/leaveform-mentor"
                   }
                 />
                 <div className="edit-right">
@@ -262,6 +262,7 @@ const LeaveFormRight = () => {
                           type="text"
                           name="year"
                           value={studentData.year}
+                          readOnly
                           onChange={handleChange}
                           placeholder="Year of Study"
                         />
@@ -269,6 +270,7 @@ const LeaveFormRight = () => {
                           type="text"
                           name="department"
                           value={studentData.department}
+                          readOnly
                           onChange={handleChange}
                           placeholder="Department"
                         />
@@ -276,6 +278,7 @@ const LeaveFormRight = () => {
                           type="text"
                           name="section"
                           value={studentData.section}
+                          readOnly
                           onChange={handleChange}
                           placeholder="Section"
                         />
@@ -283,6 +286,7 @@ const LeaveFormRight = () => {
                           type="email"
                           name="email"
                           value={studentData.email}
+                          readOnly
                           className="signup-email"
                           placeholder="Enter your email"
                           onChange={handleChange}

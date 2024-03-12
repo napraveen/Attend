@@ -5,6 +5,7 @@ import HomeRight from "../subpages/AttendanceRight";
 import "../css/settings.css";
 import axios from "axios";
 import MentorSettings from "../mentor/MentorSettings";
+import HodSettings from "../hod/HodSettings";
 const Settings = () => {
   const { userDetails } = GetUserDetails();
 
@@ -75,7 +76,13 @@ const Settings = () => {
                 : "/leaveform-mentor"
             }
           />
-          {userDetails.category === "mentor" ? <MentorSettings /> : ""}
+          {userDetails.category === "mentor" ? (
+            <MentorSettings />
+          ) : userDetails.category === "hod" ? (
+            <HodSettings />
+          ) : (
+            ""
+          )}
         </>
       ) : (
         ""

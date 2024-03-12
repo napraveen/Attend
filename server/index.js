@@ -822,7 +822,7 @@ app.get(
 );
 
 app.post(
-  "/:year/:department/:section/:batch/:email/editprofile",
+  "/:year/:department/:section/:batch/:email/mentor/editprofile",
   async (req, res) => {
     const dep = req.params.department;
     const year = req.params.year;
@@ -855,6 +855,72 @@ app.post(
     }
   }
 );
+
+app.post("/:email/hod/editprofile", async (req, res) => {
+  // const dep = req.params.department;
+  // const year = req.params.year;
+  // const batch = req.params.batch;
+  const email = req.params.email;
+  const { mentorData } = req.body;
+  console.log("sdggdfg ", mentorData);
+  try {
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.name = mentorData.name;
+    user.year = mentorData.year;
+    user.department = mentorData.department;
+    user.batch = mentorData.batch;
+    user.email = mentorData.email;
+    console.log("aigijafhglifhg ", user);
+    user.save();
+    console.log("User profile updated successfully");
+    return res
+      .status(200)
+      .json({ message: "User profile updated successfully" });
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// app.post("/:year/:department/:batch/hod/editprofile", async (req, res) => {
+//   const dep = req.params.department;
+//   const year = req.params.year;
+//   const batch = req.params.batch;
+//   // const email = req.params.email;
+//   const { hodData } = req.body;
+//   console.log(hodData);
+//   try {
+//     const user = await User.findOne({ email: email });
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     user.name = hodData.name;
+//     user.year = hodData.year;
+//     user.department = hodData.department;
+//     user.batch = hodData.batch;
+//     user.email = hodData.email;
+//     console.log(user);
+//     user.save();
+//     console.log("User profile updated successfully");
+//     return res
+//       .status(200)
+//       .json({ message: "User profile updated successfully" });
+//   } catch (error) {
+//     console.error("Error updating user profile:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
+
+// app.post("/:year/:department/:batch/hod/editprofile", async (req, res) => {
+//   console.log("Mentor profile edit request received");
+//   // Your logic to handle mentor profile editing
+// });
+
 // app.get('/:department/:email/statuschecker', async (req, res) => {
 //   const email = req.params.email;
 //   const dep = req.params.department;

@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import GetUserDetails from "../functions/GetUserDetails";
 import "../css/settings.css";
 import axios from "axios";
-const MentorSettings = () => {
+const HodSettings = () => {
   const { userDetails } = GetUserDetails();
 
   const [mentorData, setMentorData] = useState({
     name: "",
     year: "",
     department: "",
-    section: "",
     batch: "",
     email: "",
   });
@@ -19,7 +18,6 @@ const MentorSettings = () => {
       name: userDetails?.name ?? "",
       year: userDetails?.year ?? "",
       department: userDetails?.department ?? "",
-      section: userDetails?.section ?? "",
       batch: userDetails?.batch ?? "",
       email: userDetails?.email ?? "",
     });
@@ -28,14 +26,15 @@ const MentorSettings = () => {
   const handleEditProfile = async (e) => {
     e.preventDefault();
     await axios.post(
-      `http://localhost:3050/api/${userDetails.year}/${userDetails.department}/${userDetails.section}/${userDetails.batch}/${userDetails.email}/mentor/editprofile`,
-      { mentorData }
+      `http://localhost:3050/api/${userDetails.email}/hod/editprofile`,
+      {
+        mentorData,
+      }
     );
     setMentorData({
       name: userDetails?.name ?? "",
       year: userDetails?.year ?? "",
       department: userDetails?.department ?? "",
-      section: userDetails?.section ?? "",
       batch: userDetails?.batch ?? "",
       email: userDetails?.email ?? "",
     });
@@ -83,17 +82,6 @@ const MentorSettings = () => {
             />
           </div>
           <div className="settings-mentor-div">
-            <h3>Section: </h3>
-            <input
-              type="text"
-              name="section"
-              value={mentorData.section}
-              readOnly
-              onChange={handleChange}
-              placeholder="Section"
-            />
-          </div>
-          <div className="settings-mentor-div">
             <h3>Batch: </h3>
             <input
               type="text"
@@ -124,4 +112,4 @@ const MentorSettings = () => {
   );
 };
 
-export default MentorSettings;
+export default HodSettings;
