@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../css/Signup.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../css/Signup.css";
 const Signup = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
-    email: '',
-    password: '',
-    username: '',
+    email: "",
+    password: "",
+    username: "",
   });
   const { email, password, username } = inputValue;
   const handleOnChange = (e) => {
@@ -22,18 +22,18 @@ const Signup = () => {
 
   const handleError = (err) =>
     toast.error(err, {
-      position: 'bottom-left',
+      position: "bottom-left",
     });
   const handleSuccess = (msg) =>
     toast.success(msg, {
-      position: 'bottom-right',
+      position: "bottom-right",
     });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        'http://localhost:3050/api/auth/signup',
+        "http://localhost:3050/api/auth/signup",
         {
           ...inputValue,
         },
@@ -43,19 +43,22 @@ const Signup = () => {
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate('/login');
+          navigate("/login");
         }, 1000);
-      } else {
-        handleError(message);
       }
     } catch (error) {
-      console.log(error);
+      const errorMessages = error.response.data.errors.map(
+        (error) => error.msg
+      );
+      errorMessages.forEach((errorMessage) => {
+        handleError(errorMessage);
+      });
     }
     setInputValue({
       ...inputValue,
-      email: '',
-      password: '',
-      username: '',
+      email: "",
+      password: "",
+      username: "",
     });
   };
 
@@ -101,7 +104,7 @@ const Signup = () => {
           <br />
           <br />
           <p className="signup-gotologin">
-            Already have an account? <Link to={'/login'}>Login</Link>
+            Already have an account? <Link to={"/login"}>Login</Link>
           </p>
         </form>
         <ToastContainer />

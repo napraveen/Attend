@@ -27,16 +27,31 @@ router.post(
 
     //validate if user doesn't already exist
 
-    let existinguser = await User.findOne({ email: email });
+    // let existinguser = await User.findOne({ email: email });
 
-    if (existinguser) {
-      return res.status(400).json({
-        errors: [
-          {
-            msg: "This user already exists",
-          },
-        ],
-      });
+    // if (existinguser) {
+    //   return res.status(400).json({
+    //     errors: [
+    //       {
+    //         msg: "This user already exists",
+    //       },
+    //     ],
+    //   });
+    // }
+    let existingUser = await User.findOne({
+      $or: [{ email: email }, { username: username }],
+    });
+
+    if (existingUser) {
+      let errors = [];
+      if (existingUser.email === email) {
+        errors.push({ msg: "Email already exists" });
+      }
+      if (existingUser.username === username) {
+        errors.push({ msg: "Username already exists" });
+      }
+
+      return res.status(400).json({ errors: errors });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

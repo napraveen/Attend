@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../css/login.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../css/login.css";
 const Login = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const { email, password } = inputValue;
   const handleOnChange = (e) => {
@@ -21,40 +21,42 @@ const Login = () => {
 
   const handleError = (err) =>
     toast.error(err, {
-      position: 'bottom-left',
+      position: "bottom-left",
     });
   const handleSuccess = (msg) =>
     toast.success(msg, {
-      position: 'bottom-left',
+      position: "bottom-left",
     });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        'http://localhost:3050/api/auth/login',
+        "http://localhost:3050/api/auth/login",
         {
           ...inputValue,
         },
         { withCredentials: true }
       );
-      console.log(data);
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate('/');
+          navigate("/");
         }, 1000);
-      } else {
-        handleError(message);
       }
     } catch (error) {
-      console.log(error);
+      const errorMessages = error.response.data.errors.map(
+        (error) => error.msg
+      );
+      errorMessages.forEach((errorMessage) => {
+        handleError(errorMessage);
+      });
     }
     setInputValue({
       ...inputValue,
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     });
   };
 
