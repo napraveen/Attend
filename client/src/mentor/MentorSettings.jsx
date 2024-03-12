@@ -49,6 +49,8 @@ const MentorSettings = () => {
     <>
       <div className="settings-edit-profile">
         <form onSubmit={handleEditProfile}>
+          <h1>My Profile</h1>
+
           <div className="settings-mentor-div">
             {" "}
             <h3>Name: </h3>{" "}
@@ -116,7 +118,6 @@ const MentorSettings = () => {
               onChange={handleChange}
             />
           </div>
-
           <button type="submit">Submit</button>
         </form>
       </div>
