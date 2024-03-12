@@ -393,7 +393,7 @@ app.get("/:year/:department/:batch/departmentdetails", async (req, res) => {
   const formattedCollections = matchingCollections.map((collectionName) =>
     collectionName.slice(0, -1).toUpperCase()
   );
-
+  console.log(formattedCollections);
   // Organize data by sections
   const dataBySections = {};
   for (const modelName of formattedCollections) {
@@ -407,7 +407,8 @@ app.get("/:year/:department/:batch/departmentdetails", async (req, res) => {
       dataBySections[section].push(entry);
     });
   }
-  // console.log(dataBySections);
+
+  console.log(dataBySections);
   res.status(200).json(dataBySections);
 });
 
@@ -556,6 +557,54 @@ app.get(
     }));
     console.log("simplifiedData ", simplifiedData);
     res.send(simplifiedData);
+  }
+);
+
+app.get(
+  "/hod/report/date/:year/:department/:batch/:formattedDate",
+  async (req, res) => {
+    const dep = req.params.department;
+    const year = req.params.year;
+    const batch = req.params.batch;
+
+    const newID = year + dep;
+    const collections = await mongoose.connection.db
+      .listCollections()
+      .toArray();
+    const collectionNames = collections.map((collection) => collection.name);
+    // Filter matching collections
+    const matchingCollections = collectionNames.filter((collectionName) =>
+      collectionName.startsWith(newID.toLowerCase())
+    );
+    // Remove trailing 's' and then capitalize
+    const formattedCollections = matchingCollections.map((collectionName) =>
+      collectionName.slice(0, -1).toUpperCase()
+    );
+    console.log(formattedCollections);
+
+    const dataBySections = {};
+    for (const modelName of formattedCollections) {
+      const model = mongoose.model(modelName);
+      const data = await model.find();
+      const Date = req.params.formattedDate;
+      data.forEach((entry) => {
+        const section = entry.section;
+        console.log(entry);
+        if (!dataBySections[section]) {
+          dataBySections[section] = [];
+        }
+        const simplifiedData = {
+          name: entry.name,
+          department: entry.department,
+          year: entry.year,
+          rollNo: entry.rollNo,
+          presentStatus: entry.presentDates.includes(Date) ? "yes" : "no",
+        };
+        dataBySections[section].push(simplifiedData);
+      });
+    }
+    console.log(dataBySections);
+    res.status(200).json(dataBySections);
   }
 );
 
