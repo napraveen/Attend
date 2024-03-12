@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import Left from '../subpages/Left';
-import '../css/mentorcalendar.css';
-import GetUserDetails from '../functions/GetUserDetails';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import React, { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import Left from "../subpages/Left";
+import "../css/mentorcalendar.css";
+import GetUserDetails from "../functions/GetUserDetails";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const StudentCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -19,7 +19,7 @@ const StudentCalendar = () => {
     const localDate = new Date(
       date.getTime() - date.getTimezoneOffset() * 60000
     );
-    const formattedDate = localDate.toISOString().split('T')[0];
+    const formattedDate = localDate.toISOString().split("T")[0];
     await sendDateToServer(formattedDate);
   };
 
@@ -30,30 +30,31 @@ const StudentCalendar = () => {
       );
       if (result.ok) {
         const res = await result.json();
+        console.log("user hi ", res);
         setStudents(res);
       }
-      console.log('Date sent successfully:', formattedDate);
+      console.log("Date sent successfully:", formattedDate);
     } catch (error) {
-      console.error('Error sending date to server:', error);
+      console.error("Error sending date to server:", error);
     }
   };
 
   const handleDownload = () => {
-    const content = document.getElementById('table-to-download');
+    const content = document.getElementById("table-to-download");
 
     if (!content) {
-      console.error('Table element not found!');
+      console.error("Table element not found!");
       return;
     }
 
     html2canvas(content, { scale: 2 }).then((canvas) => {
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgData = canvas.toDataURL("image/png");
       const imgWidth = 210; // A4 size
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-      pdf.save('table_content.pdf');
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save("table_content.pdf");
     });
   };
 
@@ -62,7 +63,7 @@ const StudentCalendar = () => {
   };
 
   const todayReportClass = {
-    display: isTodayReportClicked ? 'block' : 'none',
+    display: isTodayReportClicked ? "block" : "none",
   };
 
   let sno = 1; // Counter for serial numbers
@@ -86,57 +87,57 @@ const StudentCalendar = () => {
             iconText6=""
             menu1="Dashboard"
             menu2={
-              userDetails.category === 'student'
-                ? 'Leave Form'
-                : userDetails.category === 'hod'
-                ? 'Leaveform'
-                : 'Attendance'
+              userDetails.category === "student"
+                ? "Leave Form"
+                : userDetails.category === "hod"
+                ? "Leaveform"
+                : "Attendance"
             }
             menu3="Edit"
             menu4="Calendar"
             menu5="Settings"
-            menu6={userDetails.category === 'mentor' ? 'Leave Form' : ''}
+            menu6={userDetails.category === "mentor" ? "Leave Form" : ""}
             link1="/"
             link2={
-              userDetails.category === 'student'
-                ? '/leaveform'
-                : userDetails.category === 'hod'
-                ? '/leaveform-hod'
-                : '/attendance'
+              userDetails.category === "student"
+                ? "/leaveform"
+                : userDetails.category === "hod"
+                ? "/leaveform-hod"
+                : "/attendance"
             }
             link3={
-              userDetails.category === 'student'
-                ? '/edit'
-                : userDetails.category === 'hod'
-                ? '/edit'
-                : '/edit'
+              userDetails.category === "student"
+                ? "/edit"
+                : userDetails.category === "hod"
+                ? "/edit"
+                : "/edit"
             }
             link4={
-              userDetails.category === 'student'
-                ? '/student-calendar'
-                : userDetails.category === 'hod'
-                ? '/hod-calendar'
-                : '/mentor-calendar'
+              userDetails.category === "student"
+                ? "/student-calendar"
+                : userDetails.category === "hod"
+                ? "/hod-calendar"
+                : "/mentor-calendar"
             }
             link5={
-              userDetails.category === 'student'
-                ? '/settings'
-                : userDetails.category === 'hod'
-                ? '/settings'
-                : '/settings'
+              userDetails.category === "student"
+                ? "/settings"
+                : userDetails.category === "hod"
+                ? "/settings"
+                : "/settings"
             }
             link6={
-              userDetails.category === 'student'
-                ? '/student-leaveform'
-                : userDetails.category === 'hod'
-                ? '/hod-leaveform'
-                : '/leaveform-mentor'
+              userDetails.category === "student"
+                ? "/student-leaveform"
+                : userDetails.category === "hod"
+                ? "/hod-leaveform"
+                : "/leaveform-mentor"
             }
           />
           <div className="calendar-right">
             <h1>Student Attendance Report</h1>
             <div className="calendar-mentor">
-              {' '}
+              {" "}
               <Calendar
                 onChange={handleDateChange}
                 value={selectedDate}
@@ -165,24 +166,32 @@ const StudentCalendar = () => {
                       <th>Roll No</th>
                       <th>Present?</th>
                     </tr>
-                    {students.map((item) => (
-                      <tr key={item._id}>
-                        <td>{sno++}</td>
-                        <td>{item.name}</td>
-                        <td>{item.department}</td>
-                        <td>{item.section}</td>
-                        <td>{item.rollNo}</td>
-                        {item.presentStatus === 'yes' ? (
-                          <td style={{ backgroundColor: 'rgb(146, 255, 132)' }}>
-                            Present
-                          </td>
-                        ) : (
-                          <td style={{ backgroundColor: 'rgb(254, 158, 158)' }}>
-                            Absent
-                          </td>
-                        )}
-                      </tr>
-                    ))}
+                    {students.map((item) =>
+                      item.email === userDetails.email ? (
+                        <tr key={item._id}>
+                          <td>{sno++}</td>
+                          <td>{item.name}</td>
+                          <td>{item.department}</td>
+                          <td>{item.section}</td>
+                          <td>{item.rollNo}</td>
+                          {item.presentStatus === "yes" ? (
+                            <td
+                              style={{ backgroundColor: "rgb(146, 255, 132)" }}
+                            >
+                              Present
+                            </td>
+                          ) : (
+                            <td
+                              style={{ backgroundColor: "rgb(254, 158, 158)" }}
+                            >
+                              Absent
+                            </td>
+                          )}
+                        </tr>
+                      ) : (
+                        ""
+                      )
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -190,7 +199,7 @@ const StudentCalendar = () => {
           </div>
         </>
       ) : (
-        ''
+        ""
       )}
     </>
   );

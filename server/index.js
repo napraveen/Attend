@@ -556,6 +556,7 @@ app.get(
       year: item.year,
       section: item.section,
       rollNo: item.rollNo,
+      email: item.email,
       presentStatus: item.presentDates.includes(Date) ? "yes" : "no",
     }));
     console.log("simplifiedData ", simplifiedData);
