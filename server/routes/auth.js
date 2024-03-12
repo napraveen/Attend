@@ -1,15 +1,15 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const router = require('express').Router();
-const { check, validationResult } = require('express-validator');
-const bcrypt = require('bcrypt');
-const JWT = require('jsonwebtoken');
-const { User } = require('../db');
+const router = require("express").Router();
+const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
+const JWT = require("jsonwebtoken");
+const { User } = require("../db");
 router.post(
-  '/signup',
+  "/signup",
   [
-    check('email', 'Please provide a vaild email').isEmail(),
-    check('password', 'Please provide a password greater than 5').isLength({
+    check("email", "Please provide a vaild email").isEmail(),
+    check("password", "Please provide a password greater than 5").isLength({
       min: 6,
     }),
   ],
@@ -33,7 +33,7 @@ router.post(
       return res.status(400).json({
         errors: [
           {
-            msg: 'This user already exists',
+            msg: "This user already exists",
           },
         ],
       });
@@ -41,39 +41,39 @@ router.post(
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    let usernameArray = username.split(' ');
+    let usernameArray = username.split(" ");
     if (
-      usernameArray[0] === 'm' ||
-      usernameArray[0] === 'M' ||
-      usernameArray[0] === 'Mentor' ||
-      usernameArray[0] === 'mentor'
+      usernameArray[0] === "m" ||
+      usernameArray[0] === "M" ||
+      usernameArray[0] === "Mentor" ||
+      usernameArray[0] === "mentor"
     ) {
       const user = await User.create({
         email,
         username,
         password: hashedPassword,
-        category: 'mentor',
+        category: "mentor",
         year: usernameArray[1],
         department: usernameArray[2],
         section: usernameArray[3],
         batch: usernameArray[4],
       });
-    } else if (usernameArray[0] === 'hod') {
+    } else if (usernameArray[0] === "hod") {
       const user = await User.create({
         email,
         username,
         password: hashedPassword,
-        category: 'hod',
+        category: "hod",
         year: usernameArray[1],
         department: usernameArray[2],
         batch: usernameArray[3],
       });
-    } else if (usernameArray[0] === 'student') {
+    } else if (usernameArray[0] === "student") {
       const user = await User.create({
         email,
         username,
         password: hashedPassword,
-        category: 'student',
+        category: "student",
         year: usernameArray[1],
         department: usernameArray[2],
         section: usernameArray[3],
@@ -92,7 +92,7 @@ router.post(
       {
         email,
       },
-      'secret',
+      "secret",
       {
         expiresIn: 36000000,
       }
@@ -106,12 +106,12 @@ router.post(
     res.json({
       token,
       success: true,
-      message: 'signed up successfully',
+      message: "signed up successfully",
     });
   }
 );
 
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   const { password, email, username } = req.body;
 
   const user = await User.findOne({ email: email });
@@ -119,7 +119,7 @@ router.post('/login', async (req, res) => {
     return res.status(400).json({
       errors: [
         {
-          msg: 'Invalid Credentials',
+          msg: "Invalid Credentials",
         },
       ],
     });
@@ -129,7 +129,7 @@ router.post('/login', async (req, res) => {
     return res.status(400).json({
       errors: [
         {
-          msg: 'Invalid Credentials',
+          msg: "Invalid Credentials",
         },
       ],
     });
@@ -138,13 +138,13 @@ router.post('/login', async (req, res) => {
     {
       email,
     },
-    'secret',
+    "secret",
     {
       expiresIn: 36000000,
     }
   );
 
-  res.cookie('token', token, {
+  res.cookie("token", token, {
     httpOnly: false,
     maxAge: 36000000,
   });
@@ -152,35 +152,39 @@ router.post('/login', async (req, res) => {
   res.json({
     token,
     success: true,
-    message: 'Successfully logged in',
+    message: "Successfully logged in",
   });
 });
 
-router.get('/all', (req, res) => {
+router.get("/all", (req, res) => {
   res.json(users);
 });
 
-router.get('/check-auth', (req, res) => {
+router.get("/check-auth", (req, res) => {
   const token = req.cookies.token;
   // console.log('Received token:', token);
 
   if (!token) {
-    return res.json({ authenticated: false, message: 'Token not found' });
+    return res.json({ authenticated: false, message: "Token not found" });
   }
 
-  JWT.verify(token, 'secret', async (err, decoded) => {
+  JWT.verify(token, "secret", async (err, decoded) => {
     if (err) {
-      console.error('Error verifying token:', err);
+      console.error("Error verifying token:", err);
       return res.json({
         authenticated: false,
-        message: 'Error verifying token',
+        message: "Error verifying token",
       });
     }
     // console.log('Decoded token:', decoded);
     const email = decoded.email;
     const user = await User.findOne({ email: decoded.email });
-    const username = user.username;
-    return res.json({ authenticated: true, username: username });
+    if (user) {
+      const username = user.username;
+      return res.json({ authenticated: true, username: username });
+    } else {
+      return res.json({ authenticated: false, message: "User not found" });
+    }
   });
 });
 
