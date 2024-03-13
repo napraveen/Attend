@@ -65,9 +65,11 @@ const Signup = () => {
   return (
     <div className="signup-container">
       <div className="signup-form">
-        <h1 className="signup-title">Signup Account</h1>
+        <h1 className="signup-title">Signup Here 🖊️ </h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">
+            Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </label>
           <input
             type="email"
             name="email"
@@ -103,9 +105,12 @@ const Signup = () => {
           <br />
           <br />
           <br />
-          <p className="signup-gotologin">
-            Already have an account? <Link to={"/login"}>Login</Link>
-          </p>
+          <h3 className="signup-gotologin">
+            Already have an account?{" "}
+            <Link to={"/login"} className="submit-login-link">
+              Login
+            </Link>
+          </h3>
         </form>
         <ToastContainer />
       </div>

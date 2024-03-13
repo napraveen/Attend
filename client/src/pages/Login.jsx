@@ -76,7 +76,7 @@ const Login = () => {
             <span>Hello</span>
             <span>Again!</span>
           </h1>
-          <label for="login-email">Email</label>
+          <label for="login-email">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 
           <input
             type="email"

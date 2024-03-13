@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,7 +12,13 @@
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
-  background-color: #93dca8;
+  /* background-color: #93dca8; */
+  /* background-image: linear-gradient(
+    to right,
+    rgb(0, 255, 140),
+    rgb(0, 255, 234)
+  ); */
+  background-image: linear-gradient(to right, #088395, #00ffca);
 }
 
 .login-box h1 {
@@ -36,7 +42,7 @@
 
 .login-box label {
   font-size: 20px;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .login-box input {
@@ -65,7 +71,7 @@
 .login-signup-button {
   color: black;
   font-weight: bolder;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .login-container a {
@@ -89,7 +95,7 @@
 }
 
 .login-container li {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 .login-container a {
   color: rgba(0, 0, 0, 0.614);
@@ -97,7 +103,7 @@
 }
 
 .login-container label {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 500;
 }
 
@@ -123,7 +129,7 @@
   font-size: 20px;
   color: black;
   font-weight: 900;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   color: #048743;
 }
 .login-home:hover,

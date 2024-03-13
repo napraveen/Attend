@@ -93,6 +93,7 @@ const LFMRight = () => {
                       href={file.imgUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      style={{ color: "rgb(37, 158, 158)" }}
                     >
                       {file.imgUrl ? "Click Here" : ""}
                     </a>

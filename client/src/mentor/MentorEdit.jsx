@@ -78,6 +78,11 @@ const MentorEdit = () => {
       section: userDetails?.section ?? "",
       batch: userDetails?.batch ?? "",
       departmentId: userDetails?.department + userDetails?.section ?? "",
+      username:
+        "student " +
+          userDetails?.username.substring(
+            userDetails?.username.indexOf(" ") + 1
+          ) ?? "",
     });
   }, [userDetails]);
 
@@ -222,6 +227,7 @@ const MentorEdit = () => {
               name="username"
               className="signup-username"
               value={studentData.username}
+              readOnly
               placeholder="Enter student username"
               onChange={handleChange}
             />

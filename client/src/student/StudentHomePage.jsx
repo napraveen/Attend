@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import GetUserDetails from '../functions/GetUserDetails';
-import IsAuthenticated from '../functions/IsAuthenticated';
-import { useNavigate } from 'react-router-dom';
-import '../css/student.css';
+import React, { useEffect, useState } from "react";
+import GetUserDetails from "../functions/GetUserDetails";
+import IsAuthenticated from "../functions/IsAuthenticated";
+import { useNavigate } from "react-router-dom";
+import "../css/student.css";
+// import { BarChart } from "@mui/x-charts/BarChart";
+// import { BarChart } from "@mui/x-charts";
+// import { BarChart } from "@mui/x-charts/BarChart";
+
 const StudentHomePage = () => {
   const navigate = useNavigate();
   const { authenticated, loading } = IsAuthenticated();
@@ -24,10 +28,10 @@ const StudentHomePage = () => {
           // console.log(studentData);
           setStudentData(studentData); // Update state with fetched data
         } else {
-          throw new Error('Failed to fetch data');
+          throw new Error("Failed to fetch data");
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -44,10 +48,10 @@ const StudentHomePage = () => {
           // console.log('form status = ', formStatus);
           // console.log('the data is ', data);
         } else {
-          throw new Error('Failed to fetch status checker data');
+          throw new Error("Failed to fetch status checker data");
         }
       } catch (error) {
-        console.error('Error fetching status checker data:', error);
+        console.error("Error fetching status checker data:", error);
       }
     };
 
@@ -56,25 +60,37 @@ const StudentHomePage = () => {
   }, [authenticated, userDetails]);
   const getColor = (status) => {
     console.log(formStatus);
-    if (status === 'Applied') {
+    if (status === "Applied") {
       // console.log('hiihihhhi', status);
-      return 'rgb(242, 242, 146)';
-    } else if (status === 'Not Applied') {
+      return "rgb(242, 242, 146)";
+    } else if (status === "Not Applied") {
       // console.log('hiihihhhi', status);
-      return 'rgb(239, 169, 167)';
-    } else if (status === 'verified') {
-      return ' rgb(242, 205, 146)';
-    } else if (status === 'Accepted') {
-      return 'rgb(157, 240, 165)';
+      return "rgb(239, 169, 167)";
+    } else if (status === "verified") {
+      return " rgb(242, 205, 146)";
+    } else if (status === "Accepted") {
+      return "rgb(157, 240, 165)";
     }
     // Default color if status is neither 'Applied' nor 'Not Applied'
-    return ''; // You can set a default color here if needed
+    return ""; // You can set a default color here if needed
   };
 
   return (
     <>
       {studentdata.length > 0 ? (
         <div className="student-dashboard-container">
+          {/* <BarChart  */}
+          {/* xAxis={[ */}
+          {/* { scaleType: "band", data: ["group A", "group B", "group C"] }, */}
+          {/* ]} */}
+          {/* series={[ */}
+          {/* { data: [4, 3, 5] }, */}
+          {/* { data: [1, 6, 3] }, */}
+          {/* { data: [2, 5, 6] }, */}
+          {/* ]} */}
+          {/* width={500} */}
+          {/* height={300} */}
+          {/* /> */}
           <div className="student-dashboard-title">
             <h1>My Data</h1>
           </div>
