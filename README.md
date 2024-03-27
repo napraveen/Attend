@@ -1,2 +1,2 @@
 <h1>Attendance Management System</h1>
-<h2>$docker-compose up</h2>
+<p>$docker-compose up</p>
